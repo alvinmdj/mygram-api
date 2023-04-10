@@ -2,6 +2,28 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
+## Endpoints
+
+| Category     | Method | Endpoint                  | Middleware                     | Description               |
+|--------------|--------|---------------------------|--------------------------------|---------------------------|
+| User         | POST   | /api/v1/users/register    | -                              | User registration         |
+| User         | POST   | /api/v1/users/login       | -                              | User login                |
+| Photo        | GET    | /api/v1/photos            | Authentication                 | Get all photos            |
+| Photo        | GET    | /api/v1/photos/:id        | Authentication                 | Get photo by ID           |
+| Photo        | POST   | /api/v1/photos            | Authentication                 | Create new photo          |
+| Photo        | PUT    | /api/v1/photos/:id        | Authentication & Authorization | Update photo by ID        |
+| Photo        | DELETE | /api/v1/photos/:id        | Authentication & Authorization | Delete photo by ID        |
+| Comment      | GET    | /api/v1/comments          | Authentication                 | Get all comments          |
+| Comment      | GET    | /api/v1/comments/:id      | Authentication                 | Get comment by ID         |
+| Comment      | POST   | /api/v1/comments          | Authentication                 | Create new comment        |
+| Comment      | PUT    | /api/v1/comments/:id      | Authentication & Authorization | Update comment by ID      |
+| Comment      | DELETE | /api/v1/comments/:id      | Authentication & Authorization | Delete comment by ID      |
+| Social Media | GET    | /api/v1/social-medias     | Authentication                 | Get all social medias     |
+| Social Media | GET    | /api/v1/social-medias/:id | Authentication                 | Get social media by ID    |
+| Social Media | POST   | /api/v1/social-medias     | Authentication                 | Create new social media   |
+| Social Media | PUT    | /api/v1/social-medias/:id | Authentication & Authorization | Update social media by ID |
+| Social Media | DELETE | /api/v1/social-medias/:id | Authentication & Authorization | Delete social media by ID |
+
 ## Dependencies
 
 - `go get github.com/asaskevich/govalidator`
