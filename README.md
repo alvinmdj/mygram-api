@@ -33,6 +33,10 @@ Hacktiv8 Scalable Web Service with Go - Final Project
 - `go get gorm.io/driver/postgres`
 - `go get gorm.io/gorm`
 - `go get github.com/joho/godotenv`
+- `go get github.com/swaggo/swag/cmd/swag`
+- `go get github.com/swaggo/gin-swagger`
+- `go get github.com/swaggo/files`
+- `go get github.com/alecthomas/template`
 
 ## Setup DB (Postgres)
 
