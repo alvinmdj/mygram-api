@@ -32,7 +32,7 @@ func (u *UserSvc) Register(userInput models.UserRegisterInput) (user models.User
 	}
 
 	user, err = u.userRepo.Save(user)
-	return user, err
+	return
 }
 
 func (u *UserSvc) Login(userInput models.UserLoginInput) (token string, err error) {
