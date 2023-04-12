@@ -1,0 +1,113 @@
+definitions:
+  models.UserLoginInput:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  models.UserLoginOutput:
+    properties:
+      token:
+        type: string
+    type: object
+  models.UserRegisterInput:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  models.UserRegisterOutput:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      updated_at:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/users/login:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: User login
+      parameters:
+      - description: login user
+        in: body
+        name: models.UserLoginInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserLoginInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.UserLoginOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: User login
+      tags:
+      - users
+  /api/v1/users/register:
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Register new user
+      parameters:
+      - description: register user
+        in: body
+        name: models.UserRegisterInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserRegisterInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.UserRegisterOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Register new user
+      tags:
+      - users
+swagger: "2.0"

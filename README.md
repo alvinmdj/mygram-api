@@ -2,6 +2,8 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
+Swagger: /swagger/index.html
+
 ## Endpoints
 
 | Category     | Method | Endpoint                  | Middleware                     | Description               |
@@ -24,6 +26,12 @@ Hacktiv8 Scalable Web Service with Go - Final Project
 | Social Media | PUT    | /api/v1/social-medias/:id | Authentication & Authorization | Update social media by ID |
 | Social Media | DELETE | /api/v1/social-medias/:id | Authentication & Authorization | Delete social media by ID |
 
+## Links
+
+- [gorm](https://gorm.io/)
+- [govalidator](https://github.com/asaskevich/govalidator)
+- [swaggo](https://github.com/swaggo/swag)
+
 ## Dependencies
 
 - `go get github.com/asaskevich/govalidator`
@@ -45,6 +53,10 @@ Hacktiv8 Scalable Web Service with Go - Final Project
 - Create database: `CREATE DATABASE db_mygram_api;`
 - Select database: `\c db_mygram_api`
 - Show tables: `dt`
+
+## Init swagger docs
+
+`swag init`
 
 ## Run app
 
