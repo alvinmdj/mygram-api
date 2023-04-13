@@ -19,3 +19,16 @@ type SocialMediaCreateOutput struct {
 	SocialMediaURL string `json:"social_media_url" form:"social_media_url"`
 	UserID         uint   `json:"user_id"`
 }
+
+type SocialMediaUpdateInput struct {
+	ID             uint   `valid:"required~ID is required"`
+	Name           string `json:"name" form:"name" valid:"required~name is required"`
+	SocialMediaURL string `json:"social_media_url" form:"social_media_url" valid:"required~social media URL is required"`
+	UserID         uint   `valid:"required~user ID is required"`
+}
+
+type SocialMediaUpdateOutput = SocialMediaCreateOutput
+
+type SocialMediaDeleteOutput struct {
+	Message string `json:"message"`
+}

@@ -60,6 +60,9 @@ func StartApp() *gin.Engine {
 				socialMediaRouter.GET("/:socialMediaId", socialMediaHdl.GetOneById)
 				socialMediaRouter.POST("", socialMediaHdl.Create)
 
+				// implement authorization middleware
+				socialMediaRouter.PUT("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Update)
+				socialMediaRouter.DELETE("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Delete)
 			}
 		}
 	}

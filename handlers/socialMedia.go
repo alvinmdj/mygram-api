@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -43,7 +44,7 @@ func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 	socialMedias, err := s.socialMediaSvc.GetAll()
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "bad request",
+			"error":   "BAD REQUEST",
 			"message": err.Error(),
 		})
 		return
@@ -84,7 +85,7 @@ func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	socialMedia, err := s.socialMediaSvc.GetOneById(socialMediaId)
 	if err != nil {
 		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "not found",
+			"error":   "NOT FOUND",
 			"message": err.Error(),
 		})
 		return
@@ -150,6 +151,83 @@ func (s *SocialMediaHandler) Create(c *gin.Context) {
 	c.JSON(http.StatusCreated, socialMediaResponse)
 }
 
-func (s *SocialMediaHandler) Update(c *gin.Context) {}
+// Social Media Update godoc
+// @Summary Update social media
+// @Description Update social media
+// @Tags socialMedias
+// @Accept json,mpfd
+// @Produce json
+// @Param socialMediaId path string true "update social media by id"
+// @Param models.SocialMediaUpdateInput body models.SocialMediaUpdateInput{} true "update social media"
+// @Param Authorization header string true "format: Bearer token-here"
+// @Success 200 {object} models.SocialMediaUpdateOutput{}
+// @Failure 403 {object} map[string]string{}
+// @Failure 404 {object} map[string]string{}
+// @Failure 500 {object} map[string]string{}
+// @Router /api/v1/social-medias/:socialMediaId [put]
+func (s *SocialMediaHandler) Update(c *gin.Context) {
+	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
+	contentType := helpers.GetContentType(c)
+	socialMediaInput := models.SocialMediaUpdateInput{}
 
-func (s *SocialMediaHandler) Delete(c *gin.Context) {}
+	// get token claims in userData context from authentication middleware
+	// and cast the data type from any to jwt.MapClaims
+	userData := c.MustGet("userData").(jwt.MapClaims)
+	userId := uint(userData["id"].(float64))
+
+	// store id and user id to input struct
+	socialMediaInput.ID = uint(socialMediaId)
+	socialMediaInput.UserID = userId
+
+	// get req body: name and social media url
+	if contentType == helpers.AppJson {
+		c.ShouldBindJSON(&socialMediaInput)
+	} else {
+		c.ShouldBind(&socialMediaInput)
+	}
+
+	socialMedia, err := s.socialMediaSvc.Update(socialMediaInput)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   "NOT FOUND",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	socialMediaResponse := models.SocialMediaUpdateOutput{
+		Base:           socialMedia.Base,
+		Name:           socialMedia.Name,
+		SocialMediaURL: socialMedia.SocialMediaURL,
+		UserID:         socialMedia.UserID,
+	}
+	c.JSON(http.StatusOK, socialMediaResponse)
+}
+
+// Social Media Delete godoc
+// @Summary Delete social media
+// @Description Delete social media
+// @Tags socialMedias
+// @Produce json
+// @Param socialMediaId path string true "delete social media by id"
+// @Param Authorization header string true "format: Bearer token-here"
+// @Success 200 {object} models.SocialMediaDeleteOutput{}
+// @Failure 403 {object} map[string]string{}
+// @Failure 404 {object} map[string]string{}
+// @Failure 500 {object} map[string]string{}
+// @Router /api/v1/social-medias/:socialMediaId [delete]
+func (s *SocialMediaHandler) Delete(c *gin.Context) {
+	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
+
+	if err := s.socialMediaSvc.Delete(socialMediaId); err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error":   "NOT FOUND",
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, models.SocialMediaDeleteOutput{
+		Message: fmt.Sprintf("social media data with id %d has been deleted", socialMediaId),
+	})
+}

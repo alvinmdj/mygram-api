@@ -23,6 +23,11 @@ definitions:
       user_id:
         type: integer
     type: object
+  models.SocialMediaDeleteOutput:
+    properties:
+      message:
+        type: string
+    type: object
   models.SocialMediaGetOutput:
     properties:
       created_at:
@@ -37,6 +42,32 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/models.UserRegisterOutput'
+    type: object
+  models.SocialMediaUpdateInput:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.SocialMediaUpdateOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
     type: object
   models.UserLoginInput:
     properties:
@@ -152,6 +183,47 @@ paths:
       tags:
       - socialMedias
   /api/v1/social-medias/:socialMediaId:
+    delete:
+      description: Delete social media
+      parameters:
+      - description: delete social media by id
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMediaDeleteOutput'
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete social media
+      tags:
+      - socialMedias
     get:
       description: Get one social media by id
       parameters:
@@ -185,6 +257,56 @@ paths:
               type: string
             type: object
       summary: Get one social media by id
+      tags:
+      - socialMedias
+    put:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Update social media
+      parameters:
+      - description: update social media by id
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: update social media
+        in: body
+        name: models.SocialMediaUpdateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMediaUpdateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMediaUpdateOutput'
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update social media
       tags:
       - socialMedias
   /api/v1/users/login:

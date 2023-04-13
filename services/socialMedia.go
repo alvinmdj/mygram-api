@@ -9,8 +9,8 @@ type SocialMediaSvcInterface interface {
 	GetAll() (socialMedias []models.SocialMedia, err error)
 	GetOneById(id int) (socialMedia models.SocialMedia, err error)
 	Create(socialMediaInput models.SocialMediaCreateInput) (socialMedia models.SocialMedia, err error)
-	// Update()
-	// Delete()
+	Update(socialMediaInput models.SocialMediaUpdateInput) (socialMedia models.SocialMedia, err error)
+	Delete(id int) (err error)
 }
 
 type SocialMediaSvc struct {
@@ -41,5 +41,26 @@ func (s *SocialMediaSvc) Create(socialMediaInput models.SocialMediaCreateInput) 
 	}
 
 	socialMedia, err = s.socialMediaRepo.Save(socialMedia)
+	return
+}
+
+func (s *SocialMediaSvc) Update(socialMediaInput models.SocialMediaUpdateInput) (socialMedia models.SocialMedia, err error) {
+	socialMedia = models.SocialMedia{
+		Base:           models.Base{ID: socialMediaInput.ID},
+		Name:           socialMediaInput.Name,
+		SocialMediaURL: socialMediaInput.SocialMediaURL,
+		UserID:         socialMediaInput.UserID,
+	}
+
+	socialMedia, err = s.socialMediaRepo.Update(socialMedia)
+	return
+}
+
+func (s *SocialMediaSvc) Delete(id int) (err error) {
+	socialMedia := models.SocialMedia{
+		Base: models.Base{ID: uint(id)},
+	}
+
+	err = s.socialMediaRepo.Delete(socialMedia)
 	return
 }
