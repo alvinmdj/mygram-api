@@ -29,6 +29,16 @@ func NewSocialMediaHdl(socialMediaSvc services.SocialMediaSvcInterface) SocialMe
 	}
 }
 
+// Social Media GetAll godoc
+// @Summary Get all social media
+// @Description Get all social media
+// @Tags socialMedias
+// @Param Authorization header string true "format: Bearer token-here"
+// @Produce json
+// @Success 200 {object} []models.SocialMediaGetOutput{}
+// @Failure 400 {object} map[string]string{}
+// @Failure 500 {object} map[string]string{}
+// @Router /api/v1/social-medias [get]
 func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 	socialMedias, err := s.socialMediaSvc.GetAll()
 	if err != nil {
@@ -57,6 +67,17 @@ func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, socialMediasResponse)
 }
 
+// Social Media GetOneById godoc
+// @Summary Get one social media by id
+// @Description Get one social media by id
+// @Tags socialMedias
+// @Param socialMediaId path string true "get social media by id"
+// @Param Authorization header string true "format: Bearer token-here"
+// @Produce json
+// @Success 200 {object} models.SocialMediaGetOutput{}
+// @Failure 404 {object} map[string]string{}
+// @Failure 500 {object} map[string]string{}
+// @Router /api/v1/social-medias/:socialMediaId [get]
 func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 
@@ -83,6 +104,18 @@ func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	c.JSON(http.StatusOK, socialMediaResponse)
 }
 
+// Social Media Create godoc
+// @Summary Create social media
+// @Description Create social media
+// @Tags socialMedias
+// @Accept json,mpfd
+// @Produce json
+// @Param models.SocialMediaCreateInput body models.SocialMediaCreateInput{} true "create social media"
+// @Param Authorization header string true "format: Bearer token-here"
+// @Success 201 {object} models.SocialMediaCreateOutput{}
+// @Failure 400 {object} map[string]string{}
+// @Failure 500 {object} map[string]string{}
+// @Router /api/v1/social-medias [post]
 func (s *SocialMediaHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
 	socialMediaInput := models.SocialMediaCreateInput{}

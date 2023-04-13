@@ -1,4 +1,43 @@
 definitions:
+  models.SocialMediaCreateInput:
+    properties:
+      name:
+        type: string
+      social_media_url:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.SocialMediaCreateOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.SocialMediaGetOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      social_media_url:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.UserRegisterOutput'
+    type: object
   models.UserLoginInput:
     properties:
       email:
@@ -40,6 +79,114 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/v1/social-medias:
+    get:
+      description: Get all social media
+      parameters:
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.SocialMediaGetOutput'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all social media
+      tags:
+      - socialMedias
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Create social media
+      parameters:
+      - description: create social media
+        in: body
+        name: models.SocialMediaCreateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.SocialMediaCreateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.SocialMediaCreateOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create social media
+      tags:
+      - socialMedias
+  /api/v1/social-medias/:socialMediaId:
+    get:
+      description: Get one social media by id
+      parameters:
+      - description: get social media by id
+        in: path
+        name: socialMediaId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMediaGetOutput'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get one social media by id
+      tags:
+      - socialMedias
   /api/v1/users/login:
     post:
       consumes:
@@ -60,8 +207,8 @@ paths:
           description: Created
           schema:
             $ref: '#/definitions/models.UserLoginOutput'
-        "400":
-          description: Bad Request
+        "401":
+          description: Unauthorized
           schema:
             additionalProperties:
               type: string
