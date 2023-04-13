@@ -7,14 +7,20 @@ import (
 
 type SocialMedia struct {
 	Base
-	Name           string `gorm:"not null" json:"name" form:"name" valid:"required~name is required"`
-	SocialMediaURL string `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required~social media URL is required"`
-	UserID         uint   `json:"user_id"`
+	Name           string `gorm:"not null"`
+	SocialMediaURL string `gorm:"not null;uniqueIndex"`
+	UserID         uint
+	User           User
 }
 
 func (s *SocialMedia) BeforeCreate(tx *gorm.DB) (err error) {
 	// validate input
-	_, err = govalidator.ValidateStruct(s)
+	input := SocialMediaCreateInput{
+		Name:           s.Name,
+		SocialMediaURL: s.SocialMediaURL,
+		UserID:         s.UserID,
+	}
+	_, err = govalidator.ValidateStruct(input)
 	return
 }
 
