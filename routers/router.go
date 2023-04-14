@@ -27,8 +27,6 @@ import (
 // @host      localhost:8080
 // @BasePath  /api/v1
 func StartApp() *gin.Engine {
-	r := gin.Default()
-
 	db := database.GetDB()
 
 	userRepo := repositories.NewUserRepo(db)
@@ -38,6 +36,15 @@ func StartApp() *gin.Engine {
 	socialMediaRepo := repositories.NewSocialMediaRepo(db)
 	socialMediaSvc := services.NewSocialMediaSvc(socialMediaRepo)
 	socialMediaHdl := handlers.NewSocialMediaHdl(socialMediaSvc)
+
+	photoRepo := repositories.NewPhotoRepo(db)
+	photoSvc := services.NewPhotoSvc(photoRepo)
+	photoHdl := handlers.NewPhotoHdl(photoSvc)
+
+	r := gin.Default()
+
+	// set a lower memory limit for multipart forms (default is 32 MiB)
+	r.MaxMultipartMemory = 2 << 20 // 2 MiB
 
 	v1 := r.Group("/api/v1")
 	{
@@ -63,6 +70,18 @@ func StartApp() *gin.Engine {
 				// implement authorization middleware
 				socialMediaRouter.PUT("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Update)
 				socialMediaRouter.DELETE("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Delete)
+			}
+
+			// photo routes
+			photoRouter := authenticatedRouter.Group("/photos")
+			{
+				photoRouter.GET("", photoHdl.GetAll)
+				// photoRouter.GET("/:photoId", photoHdl.GetOneById)
+				photoRouter.POST("", middlewares.BodySizeMiddleware(), photoHdl.Create)
+
+				// implement authorization middleware
+				// photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Update)
+				// photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Delete)
 			}
 		}
 	}

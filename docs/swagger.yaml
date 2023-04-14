@@ -1,4 +1,49 @@
 definitions:
+  models.PhotoCreateInput:
+    properties:
+      caption:
+        type: string
+      photoURL:
+        type: string
+      title:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.PhotoCreateOutput:
+    properties:
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.PhotoGetOutput:
+    properties:
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.UserRegisterOutput'
+    type: object
   models.SocialMediaCreateInput:
     properties:
       name:
@@ -110,6 +155,83 @@ definitions:
 info:
   contact: {}
 paths:
+  /api/v1/photos:
+    get:
+      description: Get all photos
+      parameters:
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.PhotoGetOutput'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all photos
+      tags:
+      - photos
+    post:
+      consumes:
+      - multipart/form-data
+      description: Create photos
+      parameters:
+      - description: create photo
+        in: body
+        name: models.PhotoCreateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.PhotoCreateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.PhotoCreateOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "413":
+          description: Request Entity Too Large
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create photos
+      tags:
+      - photos
   /api/v1/social-medias:
     get:
       description: Get all social media

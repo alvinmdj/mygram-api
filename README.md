@@ -31,6 +31,9 @@ Swagger: /swagger/index.html
 - [gorm](https://gorm.io/)
 - [govalidator](https://github.com/asaskevich/govalidator)
 - [swaggo](https://github.com/swaggo/swag)
+- [gin upload file](https://gin-gonic.com/docs/examples/upload-file/single-file/)
+- [cloudinary go upload file](https://cloudinary.com/documentation/go_image_and_video_upload)
+- [cloudinary go example](https://cloudinary.com/documentation/go_integration#complete_sdk_example)
 
 ## Dependencies
 
@@ -45,6 +48,9 @@ Swagger: /swagger/index.html
 - `go get github.com/swaggo/gin-swagger`
 - `go get github.com/swaggo/files`
 - `go get github.com/alecthomas/template`
+- `go get github.com/google/uuid`
+- `go get github.com/cloudinary/cloudinary-go/v2`
+- `go get github.com/cloudinary/cloudinary-go/v2/api/uploader`
 
 ## Setup DB (Postgres)
 
