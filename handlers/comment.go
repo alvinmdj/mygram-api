@@ -39,7 +39,7 @@ func NewCommentHdl(commentSvc services.CommentSvcInterface) CommentHdlInterface 
 // @Produce json
 // @Success 200 {object} []models.CommentGetOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId/comments [get]
+// @Router /api/v1/photos/{photoId}/comments [get]
 func (co *CommentHandler) GetAll(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
@@ -79,7 +79,7 @@ func (co *CommentHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.CommentGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId/comments/:commentId [get]
+// @Router /api/v1/photos/{photoId}/comments/{commentId} [get]
 func (co *CommentHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 	commentId, _ := strconv.Atoi(c.Param("commentId"))
@@ -113,11 +113,11 @@ func (co *CommentHandler) GetOneById(c *gin.Context) {
 // @Accept json,mpfd
 // @Produce json
 // @Param photoId path string true "create comment associated with the photo id"
-// @Param models.CommentCreateInput body models.CommentCreateInput{} true "create comment"
+// @Param models.CommentCreateInput body models.CommentCreateInputSwagger{} true "create comment"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.CommentCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId/comments [post]
+// @Router /api/v1/photos/{photoId}/comments [post]
 func (co *CommentHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
 	commentInput := models.CommentCreateInput{}
@@ -165,12 +165,12 @@ func (co *CommentHandler) Create(c *gin.Context) {
 // @Produce json
 // @Param photoId path string true "update comment associated with the photo id"
 // @Param commentId path string true "update comment by id"
-// @Param models.CommentUpdateInput body models.CommentUpdateInput{} true "update comment"
+// @Param models.CommentUpdateInput body models.CommentUpdateInputSwagger{} true "update comment"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.CommentUpdateOutput{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId/comments/:commentId [put]
+// @Router /api/v1/photos/{photoId}/comments/{commentId} [put]
 func (co *CommentHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 	commentId, _ := strconv.Atoi(c.Param("commentId"))
@@ -222,7 +222,7 @@ func (co *CommentHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId/comments/:commentId [delete]
+// @Router /api/v1/photos/{photoId}/comments/{commentId} [delete]
 func (co *CommentHandler) Delete(c *gin.Context) {
 	commentId, _ := strconv.Atoi(c.Param("commentId"))
 

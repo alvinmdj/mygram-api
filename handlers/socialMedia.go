@@ -76,7 +76,7 @@ func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.SocialMediaGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/social-medias/:socialMediaId [get]
+// @Router /api/v1/social-medias/{socialMediaId} [get]
 func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 
@@ -109,7 +109,7 @@ func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 // @Tags socialMedias
 // @Accept json,mpfd
 // @Produce json
-// @Param models.SocialMediaCreateInput body models.SocialMediaCreateInput{} true "create social media"
+// @Param models.SocialMediaCreateInput body models.SocialMediaCreateInputSwagger{} true "create social media"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.SocialMediaCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
@@ -155,12 +155,12 @@ func (s *SocialMediaHandler) Create(c *gin.Context) {
 // @Accept json,mpfd
 // @Produce json
 // @Param socialMediaId path string true "update social media by id"
-// @Param models.SocialMediaUpdateInput body models.SocialMediaUpdateInput{} true "update social media"
+// @Param models.SocialMediaUpdateInput body models.SocialMediaUpdateInputSwagger{} true "update social media"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.SocialMediaUpdateOutput{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/social-medias/:socialMediaId [put]
+// @Router /api/v1/social-medias/{socialMediaId} [put]
 func (s *SocialMediaHandler) Update(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 	contentType := helpers.GetContentType(c)
@@ -210,7 +210,7 @@ func (s *SocialMediaHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/social-medias/:socialMediaId [delete]
+// @Router /api/v1/social-medias/{socialMediaId} [delete]
 func (s *SocialMediaHandler) Delete(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 

@@ -13,6 +13,11 @@ type SocialMediaCreateInput struct {
 	UserID         uint   `valid:"required~user ID is required"`
 }
 
+type SocialMediaCreateInputSwagger struct {
+	Name           string `json:"name" form:"name"`
+	SocialMediaURL string `json:"social_media_url" form:"social_media_url"`
+}
+
 type SocialMediaCreateOutput struct {
 	Base
 	Name           string `json:"name" form:"name"`
@@ -26,5 +31,7 @@ type SocialMediaUpdateInput struct {
 	SocialMediaURL string `json:"social_media_url" form:"social_media_url" valid:"required~social media URL is required"`
 	UserID         uint   `valid:"required~user ID is required"`
 }
+
+type SocialMediaUpdateInputSwagger = SocialMediaCreateInputSwagger
 
 type SocialMediaUpdateOutput = SocialMediaCreateOutput

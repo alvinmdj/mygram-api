@@ -12,6 +12,10 @@ type CommentCreateInput struct {
 	PhotoID uint   `valid:"required~photo ID is required"`
 }
 
+type CommentCreateInputSwagger struct {
+	Message string `json:"message" form:"message"`
+}
+
 type CommentCreateOutput struct {
 	Base
 	Message string `json:"message"`
@@ -25,5 +29,7 @@ type CommentUpdateInput struct {
 	UserID  uint   `valid:"required~user ID is required"`
 	PhotoID uint   `valid:"required~photo ID is required"`
 }
+
+type CommentUpdateInputSwagger = CommentCreateInputSwagger
 
 type CommentUpdateOutput = CommentCreateOutput

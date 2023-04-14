@@ -112,272 +112,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/photos/:photoId/comments": {
-            "get": {
-                "description": "Get all comments associated with the photo id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "comments"
-                ],
-                "summary": "Get all comments associated with the photo id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "get comment associated with the photo id",
-                        "name": "photoId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "format: Bearer token-here",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/models.CommentGetOutput"
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "post": {
-                "description": "Create comment",
-                "consumes": [
-                    "application/json",
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "comments"
-                ],
-                "summary": "Create comment",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "create comment associated with the photo id",
-                        "name": "photoId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "create comment",
-                        "name": "models.CommentCreateInput",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.CommentCreateInput"
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "description": "format: Bearer token-here",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/models.CommentCreateOutput"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/api/v1/photos/:photoId/comments/:commentId": {
-            "get": {
-                "description": "Get one comment by id",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "comments"
-                ],
-                "summary": "Get one comment by id",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "get comment associated with the photo id",
-                        "name": "photoId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "get comment by id",
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "format: Bearer token-here",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.CommentGetOutput"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "put": {
-                "description": "Update comment",
-                "consumes": [
-                    "application/json",
-                    "multipart/form-data"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "comments"
-                ],
-                "summary": "Update comment",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "update comment associated with the photo id",
-                        "name": "photoId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "update comment by id",
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "description": "update comment",
-                        "name": "models.CommentUpdateInput",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.CommentUpdateInput"
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "description": "format: Bearer token-here",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.CommentUpdateOutput"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            },
-            "delete": {
-                "description": "Delete comment",
-                "produces": [
-                    "application/json"
-                ],
-                "tags": [
-                    "comments"
-                ],
-                "summary": "Delete comment",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "delete comment associated with the photo id",
-                        "name": "photoId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "delete comment by id",
-                        "name": "commentId",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "format: Bearer token-here",
-                        "name": "Authorization",
-                        "in": "header",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/models.DeleteResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/models.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/api/v1/photos/{photoId}": {
             "get": {
                 "description": "Get one photo by id",
@@ -532,6 +266,272 @@ const docTemplate = `{
                 }
             }
         },
+        "/api/v1/photos/{photoId}/comments": {
+            "get": {
+                "description": "Get all comments associated with the photo id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Get all comments associated with the photo id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "get comment associated with the photo id",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "format: Bearer token-here",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.CommentGetOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Create comment",
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Create comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "create comment associated with the photo id",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "create comment",
+                        "name": "models.CommentCreateInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CommentCreateInputSwagger"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "format: Bearer token-here",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/models.CommentCreateOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/photos/{photoId}/comments/{commentId}": {
+            "get": {
+                "description": "Get one comment by id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Get one comment by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "get comment associated with the photo id",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "get comment by id",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "format: Bearer token-here",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CommentGetOutput"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update comment",
+                "consumes": [
+                    "application/json",
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Update comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "update comment associated with the photo id",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "update comment by id",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "update comment",
+                        "name": "models.CommentUpdateInput",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.CommentUpdateInputSwagger"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "format: Bearer token-here",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.CommentUpdateOutput"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete comment",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "comments"
+                ],
+                "summary": "Delete comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "delete comment associated with the photo id",
+                        "name": "photoId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "delete comment by id",
+                        "name": "commentId",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "format: Bearer token-here",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.DeleteResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/social-medias": {
             "get": {
                 "description": "Get all social media",
@@ -589,7 +589,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.SocialMediaCreateInput"
+                            "$ref": "#/definitions/models.SocialMediaCreateInputSwagger"
                         }
                     },
                     {
@@ -616,7 +616,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/v1/social-medias/:socialMediaId": {
+        "/api/v1/social-medias/{socialMediaId}": {
             "get": {
                 "description": "Get one social media by id",
                 "produces": [
@@ -684,7 +684,7 @@ const docTemplate = `{
                         "in": "body",
                         "required": true,
                         "schema": {
-                            "$ref": "#/definitions/models.SocialMediaUpdateInput"
+                            "$ref": "#/definitions/models.SocialMediaUpdateInputSwagger"
                         }
                     },
                     {
@@ -847,17 +847,11 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "models.CommentCreateInput": {
+        "models.CommentCreateInputSwagger": {
             "type": "object",
             "properties": {
                 "message": {
                     "type": "string"
-                },
-                "photoID": {
-                    "type": "integer"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },
@@ -904,20 +898,11 @@ const docTemplate = `{
                 }
             }
         },
-        "models.CommentUpdateInput": {
+        "models.CommentUpdateInputSwagger": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer"
-                },
                 "message": {
                     "type": "string"
-                },
-                "photoID": {
-                    "type": "integer"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },
@@ -1041,7 +1026,7 @@ const docTemplate = `{
                 }
             }
         },
-        "models.SocialMediaCreateInput": {
+        "models.SocialMediaCreateInputSwagger": {
             "type": "object",
             "properties": {
                 "name": {
@@ -1049,9 +1034,6 @@ const docTemplate = `{
                 },
                 "social_media_url": {
                     "type": "string"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },
@@ -1101,20 +1083,14 @@ const docTemplate = `{
                 }
             }
         },
-        "models.SocialMediaUpdateInput": {
+        "models.SocialMediaUpdateInputSwagger": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer"
-                },
                 "name": {
                     "type": "string"
                 },
                 "social_media_url": {
                     "type": "string"
-                },
-                "userID": {
-                    "type": "integer"
                 }
             }
         },
