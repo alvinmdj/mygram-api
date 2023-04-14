@@ -2,6 +2,13 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
+- Gin Framework
+- JWT Authentication & Authorization
+- PostgreSQL & GORM
+- govalidation
+- Swagger docs
+- Cloudinary file upload
+
 Swagger: /swagger/index.html
 
 ## Endpoints
@@ -60,6 +67,11 @@ Swagger: /swagger/index.html
 - Create database: `CREATE DATABASE db_mygram_api;`
 - Select database: `\c db_mygram_api`
 - Show tables: `dt`
+
+## Setup env
+
+- Copy `cp .env.example .env`
+- Setup db, jwt, cloudinary vars
 
 ## Init swagger docs
 
