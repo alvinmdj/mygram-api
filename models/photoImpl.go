@@ -15,6 +15,12 @@ type PhotoCreateInput struct {
 	UserID   uint   `valid:"required~user ID is required"`
 }
 
+// this struct only used for swagger docs to generate desired input
+type PhotoCreateInputSwagger struct {
+	Title   string `form:"title"`
+	Caption string `form:"caption"`
+}
+
 type PhotoCreateOutput struct {
 	Base
 	Title    string `json:"title"`
@@ -30,5 +36,7 @@ type PhotoUpdateInput struct {
 	PhotoURL string `form:"photo_url" valid:"required~photo URL is required"`
 	UserID   uint   `valid:"required~user ID is required"`
 }
+
+type PhotoUpdateInputSwagger = PhotoCreateInputSwagger
 
 type PhotoUpdateOutput = PhotoCreateOutput

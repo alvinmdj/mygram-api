@@ -74,17 +74,6 @@ definitions:
       message:
         type: string
     type: object
-  models.PhotoCreateInput:
-    properties:
-      caption:
-        type: string
-      photoURL:
-        type: string
-      title:
-        type: string
-      userID:
-        type: integer
-    type: object
   models.PhotoCreateOutput:
     properties:
       caption:
@@ -118,19 +107,6 @@ definitions:
         type: string
       user:
         $ref: '#/definitions/models.UserRegisterOutput'
-    type: object
-  models.PhotoUpdateInput:
-    properties:
-      caption:
-        type: string
-      id:
-        type: integer
-      photoURL:
-        type: string
-      title:
-        type: string
-      userID:
-        type: integer
     type: object
   models.PhotoUpdateOutput:
     properties:
@@ -285,12 +261,17 @@ paths:
       - multipart/form-data
       description: Create photos
       parameters:
-      - description: create photo
-        in: body
-        name: models.PhotoCreateInput
+      - in: formData
+        name: caption
+        type: string
+      - in: formData
+        name: title
+        type: string
+      - description: upload photo
+        in: formData
+        name: photo
         required: true
-        schema:
-          $ref: '#/definitions/models.PhotoCreateInput'
+        type: file
       - description: 'format: Bearer token-here'
         in: header
         name: Authorization
@@ -312,105 +293,6 @@ paths:
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Create photos
-      tags:
-      - photos
-  /api/v1/photos/:photoId:
-    delete:
-      description: Delete photo
-      parameters:
-      - description: delete photo by id
-        in: path
-        name: photoId
-        required: true
-        type: string
-      - description: 'format: Bearer token-here'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.DeleteResponse'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Delete photo
-      tags:
-      - photos
-    get:
-      description: Get one photo by id
-      parameters:
-      - description: get photo by id
-        in: path
-        name: photoId
-        required: true
-        type: string
-      - description: 'format: Bearer token-here'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.PhotoGetOutput'
-        "404":
-          description: Not Found
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Get one photo by id
-      tags:
-      - photos
-    put:
-      consumes:
-      - application/json
-      - multipart/form-data
-      description: Update photo
-      parameters:
-      - description: update photo by id
-        in: path
-        name: photoId
-        required: true
-        type: string
-      - description: update photo
-        in: body
-        name: models.PhotoUpdateInput
-        required: true
-        schema:
-          $ref: '#/definitions/models.PhotoUpdateInput'
-      - description: 'format: Bearer token-here'
-        in: header
-        name: Authorization
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.PhotoUpdateOutput'
-        "400":
-          description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "403":
-          description: Forbidden
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-      summary: Update photo
       tags:
       - photos
   /api/v1/photos/:photoId/comments:
@@ -593,6 +475,109 @@ paths:
       summary: Update comment
       tags:
       - comments
+  /api/v1/photos/{photoId}:
+    delete:
+      description: Delete photo
+      parameters:
+      - description: delete photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Delete photo
+      tags:
+      - photos
+    get:
+      description: Get one photo by id
+      parameters:
+      - description: get photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PhotoGetOutput'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Get one photo by id
+      tags:
+      - photos
+    put:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Update photo
+      parameters:
+      - description: update photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - in: formData
+        name: caption
+        type: string
+      - in: formData
+        name: title
+        type: string
+      - description: upload photo
+        in: formData
+        name: photo
+        type: file
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PhotoUpdateOutput'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/models.ErrorResponse'
+      summary: Update photo
+      tags:
+      - photos
   /api/v1/social-medias:
     get:
       description: Get all social media

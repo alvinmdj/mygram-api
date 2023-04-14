@@ -79,7 +79,7 @@ func (p *PhotoHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.PhotoGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId [get]
+// @Router /api/v1/photos/{photoId} [get]
 func (p *PhotoHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
@@ -113,7 +113,8 @@ func (p *PhotoHandler) GetOneById(c *gin.Context) {
 // @Tags photos
 // @Accept mpfd
 // @Produce json
-// @Param models.PhotoCreateInput body models.PhotoCreateInput{} true "create photo"
+// @Param models.PhotoCreateInput formData models.PhotoCreateInputSwagger true "create photo"
+// @Param photo formData file true "upload photo"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.PhotoCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
@@ -187,12 +188,13 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 // @Accept json,mpfd
 // @Produce json
 // @Param photoId path string true "update photo by id"
-// @Param models.PhotoUpdateInput body models.PhotoUpdateInput{} true "update photo"
+// @Param models.PhotoUpdateInput formData models.PhotoUpdateInputSwagger true "update photo"
+// @Param photo formData file false "upload photo"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.PhotoUpdateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId [put]
+// @Router /api/v1/photos/{photoId} [put]
 func (p *PhotoHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 	contentType := helpers.GetContentType(c)
@@ -262,7 +264,7 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Router /api/v1/photos/:photoId [delete]
+// @Router /api/v1/photos/{photoId} [delete]
 func (p *PhotoHandler) Delete(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
