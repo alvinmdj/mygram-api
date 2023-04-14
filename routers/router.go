@@ -41,6 +41,10 @@ func StartApp() *gin.Engine {
 	photoSvc := services.NewPhotoSvc(photoRepo)
 	photoHdl := handlers.NewPhotoHdl(photoSvc)
 
+	commentRepo := repositories.NewCommentRepo(db)
+	commentSvc := services.NewCommentSvc(commentRepo)
+	commentHdl := handlers.NewCommentHdl(commentSvc)
+
 	r := gin.Default()
 
 	// set a lower memory limit for multipart forms (default is 32 MiB)
@@ -84,6 +88,20 @@ func StartApp() *gin.Engine {
 				// implement authorization middleware (+ body size middleware for update handler)
 				photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), middlewares.BodySizeMiddleware(), photoHdl.Update)
 				photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Delete)
+			}
+
+			commentRouter := authenticatedRouter.Group("/photos/:photoId/comments")
+			{
+				// implement middleware to find photo by photo id
+				commentRouter.Use(middlewares.FindPhoto())
+
+				commentRouter.GET("", commentHdl.GetAll)
+				commentRouter.GET("/:commentId", commentHdl.GetOneById)
+				commentRouter.POST("", commentHdl.Create)
+
+				// implement authorization middleware
+				commentRouter.PUT("/:commentId", middlewares.CommentAuthorization(), commentHdl.Update)
+				commentRouter.DELETE("/:commentId", middlewares.CommentAuthorization(), commentHdl.Delete)
 			}
 		}
 	}

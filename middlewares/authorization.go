@@ -97,3 +97,47 @@ func PhotoAuthorization() gin.HandlerFunc {
 		c.Next()
 	}
 }
+
+func CommentAuthorization() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		db := database.GetDB()
+
+		// get route param "commentId"
+		commentId, err := strconv.Atoi(c.Param("commentId"))
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
+				"error":   "BAD REQUEST",
+				"message": "invalid parameter",
+			})
+			return
+		}
+
+		// get token claims, which is set in authentication middleware
+		userData := c.MustGet("userData").(jwt.MapClaims)
+
+		// get user id from token claims
+		userId := uint(userData["id"].(float64))
+		comment := models.Comment{}
+
+		// get user_id column from comment table with the associated comment id
+		err = db.Debug().Select("user_id").First(&comment, commentId).Error
+		if err != nil {
+			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
+				"error":   "NOT FOUND",
+				"message": "data doesn't exist",
+			})
+			return
+		}
+
+		// check if user id from db of the associated comment == user id from token claims
+		if comment.UserID != userId {
+			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
+				"error":   "FORBIDDEN",
+				"message": "you are not allowed to access this data",
+			})
+			return
+		}
+
+		c.Next()
+	}
+}

@@ -1,4 +1,67 @@
 definitions:
+  models.CommentCreateInput:
+    properties:
+      message:
+        type: string
+      photoID:
+        type: integer
+      userID:
+        type: integer
+    type: object
+  models.CommentCreateOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  models.CommentGetOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      updated_at:
+        type: string
+      user:
+        $ref: '#/definitions/models.UserRegisterOutput'
+    type: object
+  models.CommentUpdateInput:
+    properties:
+      id:
+        type: integer
+      message:
+        type: string
+      photoID:
+        type: integer
+      userID:
+        type: integer
+    type: object
+  models.CommentUpdateOutput:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      message:
+        type: string
+      photo_id:
+        type: integer
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   models.DeleteResponse:
     properties:
       message:
@@ -389,6 +452,230 @@ paths:
       summary: Update photo
       tags:
       - photos
+  /api/v1/photos/:photoId/comments:
+    get:
+      description: Get all comments associated with the photo id
+      parameters:
+      - description: get comment associated with the photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.CommentGetOutput'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get all comments associated with the photo id
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Create comment
+      parameters:
+      - description: create comment associated with the photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: create comment
+        in: body
+        name: models.CommentCreateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentCreateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.CommentCreateOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create comment
+      tags:
+      - comments
+  /api/v1/photos/:photoId/comments/:commentId:
+    delete:
+      description: Delete comment
+      parameters:
+      - description: delete comment associated with the photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: delete comment by id
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete comment
+      tags:
+      - comments
+    get:
+      description: Get one comment by id
+      parameters:
+      - description: get comment associated with the photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: get comment by id
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CommentGetOutput'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get one comment by id
+      tags:
+      - comments
+    put:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Update comment
+      parameters:
+      - description: update comment associated with the photo id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: update comment by id
+        in: path
+        name: commentId
+        required: true
+        type: string
+      - description: update comment
+        in: body
+        name: models.CommentUpdateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.CommentUpdateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CommentUpdateOutput'
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update comment
+      tags:
+      - comments
   /api/v1/social-medias:
     get:
       description: Get all social media
