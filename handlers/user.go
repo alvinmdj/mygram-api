@@ -33,7 +33,6 @@ func NewUserHdl(userSvc services.UserSvcInterface) UserHdlInterface {
 // @Param models.UserRegisterInput body models.UserRegisterInput{} true "register user"
 // @Success 201 {object} models.UserRegisterOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/users/register [post]
 func (u *UserHandler) Register(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -72,7 +71,6 @@ func (u *UserHandler) Register(c *gin.Context) {
 // @Param models.UserLoginInput body models.UserLoginInput{} true "login user"
 // @Success 201 {object} models.UserLoginOutput{}
 // @Failure 401 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/users/login [post]
 func (u *UserHandler) Login(c *gin.Context) {
 	contentType := helpers.GetContentType(c)

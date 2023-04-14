@@ -39,7 +39,6 @@ func NewCommentHdl(commentSvc services.CommentSvcInterface) CommentHdlInterface 
 // @Produce json
 // @Success 200 {object} []models.CommentGetOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments [get]
 func (co *CommentHandler) GetAll(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -80,7 +79,6 @@ func (co *CommentHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.CommentGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [get]
 func (co *CommentHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -119,7 +117,6 @@ func (co *CommentHandler) GetOneById(c *gin.Context) {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.CommentCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments [post]
 func (co *CommentHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -173,7 +170,6 @@ func (co *CommentHandler) Create(c *gin.Context) {
 // @Success 200 {object} models.CommentUpdateOutput{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [put]
 func (co *CommentHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -226,7 +222,6 @@ func (co *CommentHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [delete]
 func (co *CommentHandler) Delete(c *gin.Context) {
 	commentId, _ := strconv.Atoi(c.Param("commentId"))

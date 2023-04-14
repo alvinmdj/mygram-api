@@ -38,7 +38,6 @@ func NewSocialMediaHdl(socialMediaSvc services.SocialMediaSvcInterface) SocialMe
 // @Produce json
 // @Success 200 {object} []models.SocialMediaGetOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias [get]
 func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 	socialMedias, err := s.socialMediaSvc.GetAll()
@@ -77,7 +76,6 @@ func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.SocialMediaGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [get]
 func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
@@ -115,7 +113,6 @@ func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.SocialMediaCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias [post]
 func (s *SocialMediaHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -163,7 +160,6 @@ func (s *SocialMediaHandler) Create(c *gin.Context) {
 // @Success 200 {object} models.SocialMediaUpdateOutput{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [put]
 func (s *SocialMediaHandler) Update(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
@@ -214,7 +210,6 @@ func (s *SocialMediaHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [delete]
 func (s *SocialMediaHandler) Delete(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))

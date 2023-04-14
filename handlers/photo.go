@@ -40,7 +40,6 @@ func NewPhotoHdl(photoSvc services.PhotoSvcInterface) PhotoHdlInterface {
 // @Produce json
 // @Success 200 {object} []models.PhotoGetOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos [get]
 func (p *PhotoHandler) GetAll(c *gin.Context) {
 	photos, err := p.photoSvc.GetAll()
@@ -80,7 +79,6 @@ func (p *PhotoHandler) GetAll(c *gin.Context) {
 // @Produce json
 // @Success 200 {object} models.PhotoGetOutput{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [get]
 func (p *PhotoHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -120,7 +118,6 @@ func (p *PhotoHandler) GetOneById(c *gin.Context) {
 // @Success 201 {object} models.PhotoCreateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
 // @Failure 413 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos [post]
 func (p *PhotoHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -195,7 +192,6 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 // @Success 200 {object} models.PhotoUpdateOutput{}
 // @Failure 400 {object} models.ErrorResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [put]
 func (p *PhotoHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -266,7 +262,6 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 // @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} models.ErrorResponse{}
 // @Failure 404 {object} models.ErrorResponse{}
-// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [delete]
 func (p *PhotoHandler) Delete(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))

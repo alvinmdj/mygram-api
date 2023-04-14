@@ -277,10 +277,6 @@ paths:
           description: Bad Request
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Get all photos
       tags:
       - photos
@@ -315,10 +311,6 @@ paths:
           description: Request Entity Too Large
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Create photos
       tags:
       - photos
@@ -351,10 +343,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Delete photo
       tags:
       - photos
@@ -380,10 +368,6 @@ paths:
             $ref: '#/definitions/models.PhotoGetOutput'
         "404":
           description: Not Found
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get one photo by id
@@ -426,10 +410,6 @@ paths:
           description: Forbidden
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Update photo
       tags:
       - photos
@@ -458,10 +438,6 @@ paths:
             type: array
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get all comments associated with the photo id
@@ -498,10 +474,6 @@ paths:
             $ref: '#/definitions/models.CommentCreateOutput'
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Create comment
@@ -541,10 +513,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Delete comment
       tags:
       - comments
@@ -575,10 +543,6 @@ paths:
             $ref: '#/definitions/models.CommentGetOutput'
         "404":
           description: Not Found
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get one comment by id
@@ -626,10 +590,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Update comment
       tags:
       - comments
@@ -653,10 +613,6 @@ paths:
             type: array
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get all social media
@@ -688,10 +644,6 @@ paths:
             $ref: '#/definitions/models.SocialMediaCreateOutput'
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Create social media
@@ -726,10 +678,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Delete social media
       tags:
       - socialMedias
@@ -755,10 +703,6 @@ paths:
             $ref: '#/definitions/models.SocialMediaGetOutput'
         "404":
           description: Not Found
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Get one social media by id
@@ -801,10 +745,6 @@ paths:
           description: Not Found
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: Update social media
       tags:
       - socialMedias
@@ -832,10 +772,6 @@ paths:
           description: Unauthorized
           schema:
             $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
       summary: User login
       tags:
       - users
@@ -861,10 +797,6 @@ paths:
             $ref: '#/definitions/models.UserRegisterOutput'
         "400":
           description: Bad Request
-          schema:
-            $ref: '#/definitions/models.ErrorResponse'
-        "500":
-          description: Internal Server Error
           schema:
             $ref: '#/definitions/models.ErrorResponse'
       summary: Register new user
