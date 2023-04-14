@@ -2,6 +2,8 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
+[Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
+
 - Gin Framework
 - JWT Authentication & Authorization
 - PostgreSQL & GORM
