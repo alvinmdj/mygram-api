@@ -17,9 +17,9 @@ func FindPhoto() gin.HandlerFunc {
 		// get route param "photoId"
 		photoId, err := strconv.Atoi(c.Param("photoId"))
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"error":   "BAD REQUEST",
-				"message": "invalid parameter",
+			c.AbortWithStatusJSON(http.StatusBadRequest, models.ErrorResponse{
+				Error:   "BAD REQUEST",
+				Message: "invalid parameter",
 			})
 			return
 		}
@@ -27,9 +27,9 @@ func FindPhoto() gin.HandlerFunc {
 		// check if photo exists
 		err = db.Debug().First(&photo, photoId).Error
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-				"error":   "NOT FOUND",
-				"message": "photo data doesn't exist",
+			c.AbortWithStatusJSON(http.StatusNotFound, models.ErrorResponse{
+				Error:   "NOT FOUND",
+				Message: "photo data doesn't exist",
 			})
 			return
 		}

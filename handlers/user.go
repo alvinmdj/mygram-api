@@ -32,8 +32,8 @@ func NewUserHdl(userSvc services.UserSvcInterface) UserHdlInterface {
 // @Produce json
 // @Param models.UserRegisterInput body models.UserRegisterInput{} true "register user"
 // @Success 201 {object} models.UserRegisterOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/users/register [post]
 func (u *UserHandler) Register(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -47,9 +47,9 @@ func (u *UserHandler) Register(c *gin.Context) {
 
 	user, err := u.userSvc.Register(userInput)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -71,8 +71,8 @@ func (u *UserHandler) Register(c *gin.Context) {
 // @Produce json
 // @Param models.UserLoginInput body models.UserLoginInput{} true "login user"
 // @Success 201 {object} models.UserLoginOutput{}
-// @Failure 401 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 401 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/users/login [post]
 func (u *UserHandler) Login(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -86,9 +86,9 @@ func (u *UserHandler) Login(c *gin.Context) {
 
 	token, err := u.userSvc.Login(userInput)
 	if err != nil {
-		c.JSON(http.StatusUnauthorized, gin.H{
-			"error":   "UNAUTHORIZED",
-			"message": err.Error(),
+		c.JSON(http.StatusUnauthorized, models.ErrorResponse{
+			Error:   "UNAUTHORIZED",
+			Message: err.Error(),
 		})
 		return
 	}

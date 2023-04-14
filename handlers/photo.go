@@ -39,15 +39,15 @@ func NewPhotoHdl(photoSvc services.PhotoSvcInterface) PhotoHdlInterface {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} []models.PhotoGetOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos [get]
 func (p *PhotoHandler) GetAll(c *gin.Context) {
 	photos, err := p.photoSvc.GetAll()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -79,17 +79,17 @@ func (p *PhotoHandler) GetAll(c *gin.Context) {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} models.PhotoGetOutput{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [get]
 func (p *PhotoHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
 	photo, err := p.photoSvc.GetOneById(photoId)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -118,9 +118,9 @@ func (p *PhotoHandler) GetOneById(c *gin.Context) {
 // @Param models.PhotoCreateInput body models.PhotoCreateInput{} true "create photo"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.PhotoCreateOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 413 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 413 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos [post]
 func (p *PhotoHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -134,9 +134,9 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 
 	// only accept multipart/form-data
 	if contentType == helpers.AppJson {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": "invalid content type",
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: "invalid content type",
 		})
 		return
 	} else {
@@ -147,9 +147,9 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 	photoFileHeader, err := c.FormFile("photo")
 	if err != nil {
 		log.Printf("get form err - %s", err.Error())
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": "no photo file uploaded",
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: "no photo file uploaded",
 		})
 		return
 	}
@@ -157,18 +157,18 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 	// Check if the file is an image
 	ext := filepath.Ext(photoFileHeader.Filename)
 	if ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".webp" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": "invalid file type",
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: "invalid file type",
 		})
 		return
 	}
 
 	photo, err := p.photoSvc.Create(photoInput, photoFileHeader)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -193,9 +193,9 @@ func (p *PhotoHandler) Create(c *gin.Context) {
 // @Param models.PhotoUpdateInput body models.PhotoUpdateInput{} true "update photo"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.PhotoUpdateOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [put]
 func (p *PhotoHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -213,9 +213,9 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 
 	// only accept multipart/form-data
 	if contentType == helpers.AppJson {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": "invalid content type",
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: "invalid content type",
 		})
 		return
 	} else {
@@ -229,9 +229,9 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 		// Check if the file is an image
 		ext := filepath.Ext(photoFileHeader.Filename)
 		if ext != ".jpg" && ext != ".jpeg" && ext != ".png" && ext != ".webp" {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error":   "BAD REQUEST",
-				"message": "invalid file type",
+			c.JSON(http.StatusBadRequest, models.ErrorResponse{
+				Error:   "BAD REQUEST",
+				Message: "invalid file type",
 			})
 			return
 		}
@@ -239,9 +239,9 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 
 	photo, err := p.photoSvc.Update(photoInput, photoFileHeader)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -264,17 +264,17 @@ func (p *PhotoHandler) Update(c *gin.Context) {
 // @Param photoId path string true "delete photo by id"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.DeleteResponse{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId [delete]
 func (p *PhotoHandler) Delete(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
 	if err := p.photoSvc.Delete(photoId); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}

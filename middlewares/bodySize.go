@@ -3,6 +3,7 @@ package middlewares
 import (
 	"net/http"
 
+	"github.com/alvinmdj/mygram-api/models"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,9 +15,9 @@ func BodySizeMiddleware() gin.HandlerFunc {
 		c.Request.Body = http.MaxBytesReader(w, c.Request.Body, maxBodyBytes)
 
 		if c.Request.ContentLength > maxBodyBytes {
-			c.AbortWithStatusJSON(http.StatusRequestEntityTooLarge, gin.H{
-				"error":   "REQUEST ENTITY TOO LARGE",
-				"message": "request body (file uploaded) too large",
+			c.AbortWithStatusJSON(http.StatusRequestEntityTooLarge, models.ErrorResponse{
+				Error:   "REQUEST ENTITY TOO LARGE",
+				Message: "request body (file uploaded) too large",
 			})
 			return
 		}

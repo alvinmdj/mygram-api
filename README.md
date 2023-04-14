@@ -2,6 +2,10 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
+TODO:
+CLEAN STRUCT FOR SWAGGER DOCS (ERROR RESPONSE, INPUT FOR FILE UPLOAD ETC. CREATE NEW MODEL (swaggerModel.go (?)))
+DEPLOY TO RAILWAY
+
 [Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
 
 - Gin Framework

@@ -17,9 +17,9 @@ func SocialMediaAuthorization() gin.HandlerFunc {
 		// get route param "socialMediaId"
 		socialMediaId, err := strconv.Atoi(c.Param("socialMediaId"))
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"error":   "BAD REQUEST",
-				"message": "invalid parameter",
+			c.AbortWithStatusJSON(http.StatusBadRequest, models.ErrorResponse{
+				Error:   "BAD REQUEST",
+				Message: "invalid parameter",
 			})
 			return
 		}
@@ -34,18 +34,18 @@ func SocialMediaAuthorization() gin.HandlerFunc {
 		// get user_id column from social media table with the associated social media id
 		err = db.Debug().Select("user_id").First(&socialMedia, socialMediaId).Error
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-				"error":   "NOT FOUND",
-				"message": "data doesn't exist",
+			c.AbortWithStatusJSON(http.StatusNotFound, models.ErrorResponse{
+				Error:   "NOT FOUND",
+				Message: "data doesn't exist",
 			})
 			return
 		}
 
 		// check if user id from db of the associated social media == user id from token claims
 		if socialMedia.UserID != userId {
-			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
-				"error":   "FORBIDDEN",
-				"message": "you are not allowed to access this data",
+			c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
+				Error:   "FORBIDDEN",
+				Message: "you are not allowed to access this data",
 			})
 			return
 		}
@@ -61,9 +61,9 @@ func PhotoAuthorization() gin.HandlerFunc {
 		// get route param "photoId"
 		photoId, err := strconv.Atoi(c.Param("photoId"))
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"error":   "BAD REQUEST",
-				"message": "invalid parameter",
+			c.AbortWithStatusJSON(http.StatusBadRequest, models.ErrorResponse{
+				Error:   "BAD REQUEST",
+				Message: "invalid parameter",
 			})
 			return
 		}
@@ -78,18 +78,18 @@ func PhotoAuthorization() gin.HandlerFunc {
 		// get user_id column from photo table with the associated photo id
 		err = db.Debug().Select("user_id").First(&photo, photoId).Error
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-				"error":   "NOT FOUND",
-				"message": "data doesn't exist",
+			c.AbortWithStatusJSON(http.StatusNotFound, models.ErrorResponse{
+				Error:   "NOT FOUND",
+				Message: "data doesn't exist",
 			})
 			return
 		}
 
 		// check if user id from db of the associated photo == user id from token claims
 		if photo.UserID != userId {
-			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
-				"error":   "FORBIDDEN",
-				"message": "you are not allowed to access this data",
+			c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
+				Error:   "FORBIDDEN",
+				Message: "you are not allowed to access this data",
 			})
 			return
 		}
@@ -105,9 +105,9 @@ func CommentAuthorization() gin.HandlerFunc {
 		// get route param "commentId"
 		commentId, err := strconv.Atoi(c.Param("commentId"))
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest, gin.H{
-				"error":   "BAD REQUEST",
-				"message": "invalid parameter",
+			c.AbortWithStatusJSON(http.StatusBadRequest, models.ErrorResponse{
+				Error:   "BAD REQUEST",
+				Message: "invalid parameter",
 			})
 			return
 		}
@@ -122,18 +122,18 @@ func CommentAuthorization() gin.HandlerFunc {
 		// get user_id column from comment table with the associated comment id
 		err = db.Debug().Select("user_id").First(&comment, commentId).Error
 		if err != nil {
-			c.AbortWithStatusJSON(http.StatusNotFound, gin.H{
-				"error":   "NOT FOUND",
-				"message": "data doesn't exist",
+			c.AbortWithStatusJSON(http.StatusNotFound, models.ErrorResponse{
+				Error:   "NOT FOUND",
+				Message: "data doesn't exist",
 			})
 			return
 		}
 
 		// check if user id from db of the associated comment == user id from token claims
 		if comment.UserID != userId {
-			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{
-				"error":   "FORBIDDEN",
-				"message": "you are not allowed to access this data",
+			c.AbortWithStatusJSON(http.StatusForbidden, models.ErrorResponse{
+				Error:   "FORBIDDEN",
+				Message: "you are not allowed to access this data",
 			})
 			return
 		}

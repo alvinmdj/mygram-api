@@ -38,17 +38,17 @@ func NewCommentHdl(commentSvc services.CommentSvcInterface) CommentHdlInterface 
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} []models.CommentGetOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments [get]
 func (co *CommentHandler) GetAll(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
 
 	comments, err := co.commentSvc.GetAll(photoId)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -79,8 +79,8 @@ func (co *CommentHandler) GetAll(c *gin.Context) {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} models.CommentGetOutput{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [get]
 func (co *CommentHandler) GetOneById(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -88,9 +88,9 @@ func (co *CommentHandler) GetOneById(c *gin.Context) {
 
 	comment, err := co.commentSvc.GetOneById(photoId, commentId)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -118,8 +118,8 @@ func (co *CommentHandler) GetOneById(c *gin.Context) {
 // @Param models.CommentCreateInput body models.CommentCreateInput{} true "create comment"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.CommentCreateOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments [post]
 func (co *CommentHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -144,9 +144,9 @@ func (co *CommentHandler) Create(c *gin.Context) {
 
 	comment, err := co.commentSvc.Create(commentInput)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -171,9 +171,9 @@ func (co *CommentHandler) Create(c *gin.Context) {
 // @Param models.CommentUpdateInput body models.CommentUpdateInput{} true "update comment"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.CommentUpdateOutput{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [put]
 func (co *CommentHandler) Update(c *gin.Context) {
 	photoId, _ := strconv.Atoi(c.Param("photoId"))
@@ -199,9 +199,9 @@ func (co *CommentHandler) Update(c *gin.Context) {
 
 	comment, err := co.commentSvc.Update(commentInput)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -224,17 +224,17 @@ func (co *CommentHandler) Update(c *gin.Context) {
 // @Param commentId path string true "delete comment by id"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.DeleteResponse{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/photos/:photoId/comments/:commentId [delete]
 func (co *CommentHandler) Delete(c *gin.Context) {
 	commentId, _ := strconv.Atoi(c.Param("commentId"))
 
 	if err := co.commentSvc.Delete(commentId); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}

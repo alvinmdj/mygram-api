@@ -37,15 +37,15 @@ func NewSocialMediaHdl(socialMediaSvc services.SocialMediaSvcInterface) SocialMe
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} []models.SocialMediaGetOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias [get]
 func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 	socialMedias, err := s.socialMediaSvc.GetAll()
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -76,17 +76,17 @@ func (s *SocialMediaHandler) GetAll(c *gin.Context) {
 // @Param Authorization header string true "format: Bearer token-here"
 // @Produce json
 // @Success 200 {object} models.SocialMediaGetOutput{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [get]
 func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 
 	socialMedia, err := s.socialMediaSvc.GetOneById(socialMediaId)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -114,8 +114,8 @@ func (s *SocialMediaHandler) GetOneById(c *gin.Context) {
 // @Param models.SocialMediaCreateInput body models.SocialMediaCreateInput{} true "create social media"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 201 {object} models.SocialMediaCreateOutput{}
-// @Failure 400 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 400 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias [post]
 func (s *SocialMediaHandler) Create(c *gin.Context) {
 	contentType := helpers.GetContentType(c)
@@ -135,9 +135,9 @@ func (s *SocialMediaHandler) Create(c *gin.Context) {
 
 	socialMedia, err := s.socialMediaSvc.Create(socialMediaInput)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"error":   "BAD REQUEST",
-			"message": err.Error(),
+		c.JSON(http.StatusBadRequest, models.ErrorResponse{
+			Error:   "BAD REQUEST",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -161,9 +161,9 @@ func (s *SocialMediaHandler) Create(c *gin.Context) {
 // @Param models.SocialMediaUpdateInput body models.SocialMediaUpdateInput{} true "update social media"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.SocialMediaUpdateOutput{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [put]
 func (s *SocialMediaHandler) Update(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
@@ -188,9 +188,9 @@ func (s *SocialMediaHandler) Update(c *gin.Context) {
 
 	socialMedia, err := s.socialMediaSvc.Update(socialMediaInput)
 	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
@@ -212,17 +212,17 @@ func (s *SocialMediaHandler) Update(c *gin.Context) {
 // @Param socialMediaId path string true "delete social media by id"
 // @Param Authorization header string true "format: Bearer token-here"
 // @Success 200 {object} models.DeleteResponse{}
-// @Failure 403 {object} map[string]string{}
-// @Failure 404 {object} map[string]string{}
-// @Failure 500 {object} map[string]string{}
+// @Failure 403 {object} models.ErrorResponse{}
+// @Failure 404 {object} models.ErrorResponse{}
+// @Failure 500 {object} models.ErrorResponse{}
 // @Router /api/v1/social-medias/:socialMediaId [delete]
 func (s *SocialMediaHandler) Delete(c *gin.Context) {
 	socialMediaId, _ := strconv.Atoi(c.Param("socialMediaId"))
 
 	if err := s.socialMediaSvc.Delete(socialMediaId); err != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error":   "NOT FOUND",
-			"message": err.Error(),
+		c.JSON(http.StatusNotFound, models.ErrorResponse{
+			Error:   "NOT FOUND",
+			Message: err.Error(),
 		})
 		return
 	}
