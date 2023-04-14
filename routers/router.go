@@ -76,12 +76,14 @@ func StartApp() *gin.Engine {
 			photoRouter := authenticatedRouter.Group("/photos")
 			{
 				photoRouter.GET("", photoHdl.GetAll)
-				// photoRouter.GET("/:photoId", photoHdl.GetOneById)
+				photoRouter.GET("/:photoId", photoHdl.GetOneById)
+
+				// implement body size middleware to validate uploaded file size
 				photoRouter.POST("", middlewares.BodySizeMiddleware(), photoHdl.Create)
 
-				// implement authorization middleware
-				// photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Update)
-				// photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Delete)
+				// implement authorization middleware (+ body size middleware for update handler)
+				photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), middlewares.BodySizeMiddleware(), photoHdl.Update)
+				photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Delete)
 			}
 		}
 	}

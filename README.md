@@ -34,6 +34,7 @@ Swagger: /swagger/index.html
 - [gin upload file](https://gin-gonic.com/docs/examples/upload-file/single-file/)
 - [cloudinary go upload file](https://cloudinary.com/documentation/go_image_and_video_upload)
 - [cloudinary go example](https://cloudinary.com/documentation/go_integration#complete_sdk_example)
+- [cloudinary destroy file](https://cloudinary.com/documentation/image_upload_api_reference#destroy_method)
 
 ## Dependencies
 

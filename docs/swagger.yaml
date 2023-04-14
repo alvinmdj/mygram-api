@@ -1,4 +1,9 @@
 definitions:
+  models.DeleteResponse:
+    properties:
+      message:
+        type: string
+    type: object
   models.PhotoCreateInput:
     properties:
       caption:
@@ -44,6 +49,36 @@ definitions:
       user:
         $ref: '#/definitions/models.UserRegisterOutput'
     type: object
+  models.PhotoUpdateInput:
+    properties:
+      caption:
+        type: string
+      id:
+        type: integer
+      photoURL:
+        type: string
+      title:
+        type: string
+      userID:
+        type: integer
+    type: object
+  models.PhotoUpdateOutput:
+    properties:
+      caption:
+        type: string
+      created_at:
+        type: string
+      id:
+        type: integer
+      photo_url:
+        type: string
+      title:
+        type: string
+      updated_at:
+        type: string
+      user_id:
+        type: integer
+    type: object
   models.SocialMediaCreateInput:
     properties:
       name:
@@ -67,11 +102,6 @@ definitions:
         type: string
       user_id:
         type: integer
-    type: object
-  models.SocialMediaDeleteOutput:
-    properties:
-      message:
-        type: string
     type: object
   models.SocialMediaGetOutput:
     properties:
@@ -232,6 +262,133 @@ paths:
       summary: Create photos
       tags:
       - photos
+  /api/v1/photos/:photoId:
+    delete:
+      description: Delete photo
+      parameters:
+      - description: delete photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DeleteResponse'
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete photo
+      tags:
+      - photos
+    get:
+      description: Get one photo by id
+      parameters:
+      - description: get photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PhotoGetOutput'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Get one photo by id
+      tags:
+      - photos
+    put:
+      consumes:
+      - application/json
+      - multipart/form-data
+      description: Update photo
+      parameters:
+      - description: update photo by id
+        in: path
+        name: photoId
+        required: true
+        type: string
+      - description: update photo
+        in: body
+        name: models.PhotoUpdateInput
+        required: true
+        schema:
+          $ref: '#/definitions/models.PhotoUpdateInput'
+      - description: 'format: Bearer token-here'
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.PhotoUpdateOutput'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "403":
+          description: Forbidden
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Update photo
+      tags:
+      - photos
   /api/v1/social-medias:
     get:
       description: Get all social media
@@ -324,7 +481,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.SocialMediaDeleteOutput'
+            $ref: '#/definitions/models.DeleteResponse'
         "403":
           description: Forbidden
           schema:

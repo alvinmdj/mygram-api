@@ -28,7 +28,3 @@ type SocialMediaUpdateInput struct {
 }
 
 type SocialMediaUpdateOutput = SocialMediaCreateOutput
-
-type SocialMediaDeleteOutput struct {
-	Message string `json:"message"`
-}

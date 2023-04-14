@@ -9,6 +9,8 @@ type PhotoRepoInterface interface {
 	FindAll() (photos []models.Photo, err error)
 	FindById(id int) (photo models.Photo, err error)
 	Save(photo models.Photo) (models.Photo, error)
+	Update(photo models.Photo) (models.Photo, error)
+	Delete(photo models.Photo) (err error)
 }
 
 type PhotoRepo struct {
@@ -38,4 +40,20 @@ func (p *PhotoRepo) FindById(id int) (photo models.Photo, err error) {
 func (p *PhotoRepo) Save(photo models.Photo) (models.Photo, error) {
 	err := p.db.Debug().Create(&photo).Error
 	return photo, err
+}
+
+func (p *PhotoRepo) Update(photo models.Photo) (models.Photo, error) {
+	err := p.db.Debug().Model(&photo).
+		Where("id = ?", photo.ID).
+		Updates(models.Photo{
+			Title:    photo.Title,
+			Caption:  photo.Caption,
+			PhotoURL: photo.PhotoURL,
+		}).Error
+	return photo, err
+}
+
+func (p *PhotoRepo) Delete(photo models.Photo) (err error) {
+	err = p.db.Debug().Delete(&photo).Error
+	return
 }

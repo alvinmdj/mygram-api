@@ -211,7 +211,7 @@ func (s *SocialMediaHandler) Update(c *gin.Context) {
 // @Produce json
 // @Param socialMediaId path string true "delete social media by id"
 // @Param Authorization header string true "format: Bearer token-here"
-// @Success 200 {object} models.SocialMediaDeleteOutput{}
+// @Success 200 {object} models.DeleteResponse{}
 // @Failure 403 {object} map[string]string{}
 // @Failure 404 {object} map[string]string{}
 // @Failure 500 {object} map[string]string{}
@@ -227,7 +227,7 @@ func (s *SocialMediaHandler) Delete(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, models.SocialMediaDeleteOutput{
+	c.JSON(http.StatusOK, models.DeleteResponse{
 		Message: fmt.Sprintf("social media data with id %d has been deleted", socialMediaId),
 	})
 }

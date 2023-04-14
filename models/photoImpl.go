@@ -30,3 +30,5 @@ type PhotoUpdateInput struct {
 	PhotoURL string `form:"photo_url" valid:"required~photo URL is required"`
 	UserID   uint   `valid:"required~user ID is required"`
 }
+
+type PhotoUpdateOutput = PhotoCreateOutput
