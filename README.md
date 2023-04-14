@@ -2,11 +2,10 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
-TODO:
-CLEAN STRUCT FOR SWAGGER DOCS (ERROR RESPONSE, INPUT FOR FILE UPLOAD ETC. CREATE NEW MODEL (swaggerModel.go (?)))
-DEPLOY TO RAILWAY
+- [Deployed to Railway](https://mygram-api-production.up.railway.app/swagger/index.html)
+- [Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
 
-[Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
+Techs:
 
 - Gin Framework
 - JWT Authentication & Authorization
@@ -14,8 +13,6 @@ DEPLOY TO RAILWAY
 - govalidation
 - Swagger docs
 - Cloudinary file upload
-
-Swagger: /swagger/index.html
 
 ## Endpoints
 
