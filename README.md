@@ -14,6 +14,14 @@ Techs:
 - Swagger docs
 - Cloudinary file upload
 
+## Swagger
+
+![Swagger docs](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/swagger-screenshot.png "Swagger docs")
+
+## DB Schema
+
+![DB schema](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/db-schema.png "DB schema")
+
 ## Endpoints
 
 | Category     | Method | Endpoint                             | Middleware                     | Description               |
