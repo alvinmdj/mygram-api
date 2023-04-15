@@ -1,3 +1,4 @@
+basePath: /api/v1
 definitions:
   models.CommentCreateInputSwagger:
     properties:
@@ -212,8 +213,19 @@ definitions:
       username:
         type: string
     type: object
+host: https://mygram-api-production.up.railway.app
 info:
-  contact: {}
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is service for MyGram.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: MyGram API
+  version: "1.0"
 paths:
   /api/v1/photos:
     get:

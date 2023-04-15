@@ -58,7 +58,6 @@ Techs:
 - `go get github.com/swaggo/swag/cmd/swag`
 - `go get github.com/swaggo/gin-swagger`
 - `go get github.com/swaggo/files`
-- `go get github.com/alecthomas/template`
 - `go get github.com/google/uuid`
 - `go get github.com/cloudinary/cloudinary-go/v2`
 - `go get github.com/cloudinary/cloudinary-go/v2/api/uploader`
@@ -78,7 +77,7 @@ Techs:
 
 ## Init swagger docs
 
-`swag init`
+`swag init -g routers/router.go`
 
 ## Run app
 
