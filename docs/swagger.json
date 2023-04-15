@@ -15,8 +15,6 @@
         },
         "version": "1.0"
     },
-    "host": "https://mygram-api-production.up.railway.app",
-    "basePath": "/api/v1",
     "paths": {
         "/api/v1/photos": {
             "get": {
