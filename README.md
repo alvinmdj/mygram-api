@@ -45,6 +45,8 @@ Techs:
 - [cloudinary go upload file](https://cloudinary.com/documentation/go_image_and_video_upload)
 - [cloudinary go example](https://cloudinary.com/documentation/go_integration#complete_sdk_example)
 - [cloudinary destroy file](https://cloudinary.com/documentation/image_upload_api_reference#destroy_method)
+- [go live reload (air)](https://github.com/cosmtrek/air)
+- [example docker setup with go](https://levelup.gitconnected.com/dockerized-crud-restful-api-with-go-gorm-jwt-postgresql-mysql-and-testing-61d731430bd8)
 
 ## Dependencies
 
@@ -73,7 +75,7 @@ Techs:
 ## Setup env
 
 - Copy `cp .env.example .env`
-- Setup db, jwt, cloudinary vars
+- Setup environment variables
 
 ## Init swagger docs
 
@@ -81,7 +83,8 @@ Techs:
 
 ## Run app
 
-`go run .`
+- local development: `go run .` or `air` for live reload
+- or using Docker: `docker compose up`
 
 ## Create random string
 
