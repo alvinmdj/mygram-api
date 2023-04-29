@@ -2,7 +2,7 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
-- [Deployed to Railway](https://mygram-api-production.up.railway.app/swagger/index.html)
+- [Deployed to Railway (might display 'application error' when the free 500 hours is up every month)](https://mygram-api-production.up.railway.app/swagger/index.html)
 - [Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
 
 Techs:
@@ -13,6 +13,14 @@ Techs:
 - govalidation
 - Swagger docs
 - Cloudinary file upload
+
+## Swagger
+
+![Swagger docs](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/swagger-screenshot.png "Swagger docs")
+
+## DB Schema
+
+![DB schema](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/db-schema.png "DB schema")
 
 ## Endpoints
 
