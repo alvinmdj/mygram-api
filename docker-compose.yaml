@@ -4,10 +4,20 @@ services:
     build:
       context: .
       # Correct the path to your Dockerfile
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.production
+    restart: on-failure
+    # environment:
+    #   - DB_HOST=${DB_HOST}
+    #   - DB_PORT=${DB_PORT}
+    #   - DB_USER=${DB_USER}
+    #   - DB_PASSWORD=${DB_PASSWORD}
+    #   - DB_NAME=${DB_NAME}
+    #   - JWT_SECRET=${JWT_SECRET}
+    #   - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+    #   - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+    #   - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
     ports:
       - 8080:8080
-    restart: on-failure
     depends_on:
       - db-postgres
     # Important to bind/mount your codebase dir to /app dir for live reload

@@ -55,6 +55,8 @@ Techs:
 - [cloudinary destroy file](https://cloudinary.com/documentation/image_upload_api_reference#destroy_method)
 - [go live reload (air)](https://github.com/cosmtrek/air)
 - [example docker setup with go](https://levelup.gitconnected.com/dockerized-crud-restful-api-with-go-gorm-jwt-postgresql-mysql-and-testing-61d731430bd8)
+- [docker setup go](https://courses.devopsdirective.com/docker-beginner-to-pro/lessons/06-building-container-images/03-api-golang-dockerfile)
+- [railway dockerfiles](https://docs.railway.app/deploy/dockerfiles)
 
 ## Dependencies
 
