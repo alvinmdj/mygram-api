@@ -78,7 +78,7 @@ Techs:
 
 - Login psql: `psql -U postgres`
 - Show databases: `\list` or `\l`
-- Create database: `CREATE DATABASE db_mygram_api;`
+- Create database: `CREATE DATABASE db_mygram_api;` & `CREATE DATABASE db_mygram_api_test;`
 - Select database: `\c db_mygram_api`
 - Show tables: `dt`
 

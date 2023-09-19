@@ -46,3 +46,10 @@ func SetupTestDB() *gorm.DB {
 
 	return db
 }
+
+// Truncates the users table in the given database.
+func TruncateUsersTable(db *gorm.DB) {
+	if err := db.Exec("TRUNCATE TABLE users CASCADE").Error; err != nil {
+		log.Fatalf("Error truncating users table: %v", err)
+	}
+}
