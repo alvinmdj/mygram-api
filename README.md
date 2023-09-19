@@ -2,7 +2,6 @@
 
 Hacktiv8 Scalable Web Service with Go - Final Project
 
-- [Deployed to Railway (might display 'application error' when the free 500 hours is up every month)](https://mygram-api-production.up.railway.app/swagger/index.html)
 - [Postman](https://documenter.getpostman.com/view/16534190/2s93XwzjHg)
 
 Techs:
@@ -13,6 +12,7 @@ Techs:
 - govalidation
 - Swagger docs
 - Cloudinary file upload
+- testing & httptest & testify
 
 ## Swagger
 
@@ -55,6 +55,7 @@ Techs:
 - [cloudinary destroy file](https://cloudinary.com/documentation/image_upload_api_reference#destroy_method)
 - [go live reload (air)](https://github.com/cosmtrek/air)
 - [example docker setup with go](https://levelup.gitconnected.com/dockerized-crud-restful-api-with-go-gorm-jwt-postgresql-mysql-and-testing-61d731430bd8)
+- [Makefile .PHONY](https://stackoverflow.com/questions/2145590/what-is-the-purpose-of-phony-in-a-makefile)
 
 ## Dependencies
 
@@ -71,6 +72,7 @@ Techs:
 - `go get github.com/google/uuid`
 - `go get github.com/cloudinary/cloudinary-go/v2`
 - `go get github.com/cloudinary/cloudinary-go/v2/api/uploader`
+- `go get github.com/stretchr/testify`
 
 ## Setup DB (Postgres)
 
@@ -88,6 +90,13 @@ Techs:
 ## Init swagger docs
 
 `swag init -g routers/router.go`
+
+During local development, swagger docs available at: `http://localhost:8080/swagger/index.html`
+
+## Run test
+
+- using Makefile: `make test`
+- or run test manually: `go test -v ./test`
 
 ## Run app
 
