@@ -39,6 +39,10 @@ func StartDB() {
 	db.Debug().AutoMigrate(models.User{}, models.Photo{}, models.Comment{}, models.SocialMedia{})
 }
 
-func GetDB() *gorm.DB {
+// variadic param to get testDB for go test
+func GetDB(testDB ...*gorm.DB) *gorm.DB {
+	if len(testDB) > 0 && testDB[0] != nil {
+		return testDB[0]
+	}
 	return db
 }
