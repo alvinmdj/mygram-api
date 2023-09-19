@@ -8,10 +8,12 @@ import (
 	"testing"
 
 	"github.com/alvinmdj/mygram-api/routers"
+	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestHealthcheckOK(t *testing.T) {
+	gin.SetMode(gin.ReleaseMode)
 	router := routers.StartApp()
 
 	recorder := httptest.NewRecorder()
