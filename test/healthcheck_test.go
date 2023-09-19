@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestRegisterSuccess(t *testing.T) {
+func TestHealthcheckOK(t *testing.T) {
 	router := routers.StartApp()
 
 	recorder := httptest.NewRecorder()
