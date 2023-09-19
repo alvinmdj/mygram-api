@@ -12,6 +12,7 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
+	"gorm.io/gorm"
 )
 
 // @title           MyGram API
@@ -25,8 +26,8 @@ import (
 
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
-func StartApp() *gin.Engine {
-	db := database.GetDB()
+func StartApp(testDB ...*gorm.DB) *gin.Engine {
+	db := database.GetDB(testDB...)
 
 	userRepo := repositories.NewUserRepo(db)
 	userSvc := services.NewUserSvc(userRepo)
