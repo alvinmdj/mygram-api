@@ -49,11 +49,17 @@ func VerifyToken(c *gin.Context) (interface{}, error) {
 		return []byte(secretKey), nil
 	})
 
-	// check if token still valid after casting into type of jwt.MapClaims
-	if _, ok := token.Claims.(jwt.MapClaims); !ok || !token.Valid {
-		return nil, errResponse
+	// check if the token is valid and not nil
+	if token != nil && token.Valid {
+		// check if token claims can be cast to jwt.MapClaims
+		claims, ok := token.Claims.(jwt.MapClaims)
+		if !ok {
+			return nil, errResponse
+		}
+
+		// return claims (contains id & email of the successfully logged in user)
+		return claims, nil
 	}
 
-	// return claims (contains id & email of the successfully logged in user),
-	return token.Claims.(jwt.MapClaims), nil
+	return nil, errResponse
 }
