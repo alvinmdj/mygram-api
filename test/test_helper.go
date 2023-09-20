@@ -55,6 +55,13 @@ func TruncateUsersTable(db *gorm.DB) {
 	}
 }
 
+// Truncates the social media table in the given database.
+func TruncateSocialMediasTable(db *gorm.DB) {
+	if err := db.Exec("TRUNCATE TABLE social_media CASCADE").Error; err != nil {
+		log.Fatalf("Error truncating social_media table: %v", err)
+	}
+}
+
 // function to create a user before login test
 func RegisterTestUser(db *gorm.DB) {
 	userData := models.User{
@@ -73,4 +80,18 @@ func GetTestUser(db *gorm.DB) (models.User, error) {
 	}
 	userRepo := repositories.NewUserRepo(db)
 	return userRepo.FindByEmail(userData)
+}
+
+func CreateTestSocialMedia(db *gorm.DB) {
+	RegisterTestUser(db)
+	userData, _ := GetTestUser(db)
+
+	socialMediaData := models.SocialMedia{
+		UserID:         userData.ID,
+		Name:           "My Youtube",
+		SocialMediaURL: "https://www.youtube.com",
+	}
+
+	socialMediaRepo := repositories.NewSocialMediaRepo(db)
+	socialMediaRepo.Save(socialMediaData)
 }
