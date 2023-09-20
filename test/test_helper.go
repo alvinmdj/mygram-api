@@ -66,3 +66,11 @@ func RegisterTestUser(db *gorm.DB) {
 	userRepo := repositories.NewUserRepo(db)
 	userRepo.Save(userData)
 }
+
+func GetTestUser(db *gorm.DB) (models.User, error) {
+	userData := models.User{
+		Email: "alvinmdj@mygram.com",
+	}
+	userRepo := repositories.NewUserRepo(db)
+	return userRepo.FindByEmail(userData)
+}
