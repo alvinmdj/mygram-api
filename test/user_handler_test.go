@@ -9,24 +9,10 @@ import (
 	"testing"
 
 	"github.com/alvinmdj/mygram-api/models"
-	"github.com/alvinmdj/mygram-api/repositories"
 	"github.com/alvinmdj/mygram-api/routers"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
-	"gorm.io/gorm"
 )
-
-// function to create a user before login test
-func registerTestUser(db *gorm.DB) {
-	userData := models.User{
-		Username: "alvinmdj",
-		Email:    "alvinmdj@mygram.com",
-		Password: "password",
-		Age:      20,
-	}
-	userRepo := repositories.NewUserRepo(db)
-	userRepo.Save(userData)
-}
 
 func TestRegisterSuccess(t *testing.T) {
 	// Setup
@@ -112,7 +98,7 @@ func TestLoginSuccess(t *testing.T) {
 	router := routers.StartApp(db)
 
 	// Register a new test user
-	registerTestUser(db)
+	RegisterTestUser(db)
 
 	// Create an instance of UserLoginInput struct
 	input := models.UserLoginInput{
@@ -150,7 +136,7 @@ func TestLoginFailed(t *testing.T) {
 	router := routers.StartApp(db)
 
 	// Register a new test user
-	registerTestUser(db)
+	RegisterTestUser(db)
 
 	// Create an instance of UserLoginInput struct with wrong credentials
 	input := models.UserLoginInput{
