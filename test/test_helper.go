@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/alvinmdj/mygram-api/models"
+	"github.com/alvinmdj/mygram-api/repositories"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -52,4 +53,16 @@ func TruncateUsersTable(db *gorm.DB) {
 	if err := db.Exec("TRUNCATE TABLE users CASCADE").Error; err != nil {
 		log.Fatalf("Error truncating users table: %v", err)
 	}
+}
+
+// function to create a user before login test
+func RegisterTestUser(db *gorm.DB) {
+	userData := models.User{
+		Username: "alvinmdj",
+		Email:    "alvinmdj@mygram.com",
+		Password: "password",
+		Age:      20,
+	}
+	userRepo := repositories.NewUserRepo(db)
+	userRepo.Save(userData)
 }
