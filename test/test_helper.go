@@ -63,7 +63,7 @@ func TruncateSocialMediasTable(db *gorm.DB) {
 }
 
 // function to create a user before login test
-func RegisterTestUser(db *gorm.DB) {
+func RegisterTestUser(db *gorm.DB) models.User {
 	userData := models.User{
 		Username: "alvinmdj",
 		Email:    "alvinmdj@mygram.com",
@@ -71,7 +71,8 @@ func RegisterTestUser(db *gorm.DB) {
 		Age:      20,
 	}
 	userRepo := repositories.NewUserRepo(db)
-	userRepo.Save(userData)
+	result, _ := userRepo.Save(userData)
+	return result
 }
 
 func GetTestUser(db *gorm.DB) (models.User, error) {
