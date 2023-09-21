@@ -263,6 +263,39 @@ func TestGetSocialMediaByIDSuccess(t *testing.T) {
 	assert.Equal(t, userData.Age, responseBody.User.Age)
 }
 
+func TestGetSocialMediaByIDFailedNotFound(t *testing.T) {
+	// Setup
+	db := SetupTestDB()
+	TruncateUsersTable(db)
+	TruncateSocialMediasTable(db)
+	gin.SetMode(gin.ReleaseMode)
+	router := routers.StartApp(db)
+
+	// Create user
+	userData := RegisterTestUser(db)
+	jwt := helpers.GenerateToken(userData.ID, userData.Email)
+
+	// Send request
+	request, _ := http.NewRequest(http.MethodGet, "/api/v1/social-medias/123", nil)
+	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Authorization", fmt.Sprintf("Bearer %v", jwt))
+
+	recorder := httptest.NewRecorder()
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 404, response.StatusCode)
+
+	// Read the response body & unmarshal the response into ErrorResponse struct
+	body, _ := io.ReadAll(response.Body)
+	var responseBody models.ErrorResponse
+	json.Unmarshal(body, &responseBody)
+
+	assert.NotNil(t, responseBody.Error)
+	assert.Equal(t, "NOT FOUND", responseBody.Error)
+	assert.NotNil(t, responseBody.Message)
+}
+
 func TestGetSocialMediaByIDFailedUnauthenticated(t *testing.T) {
 	// Setup
 	db := SetupTestDB()
@@ -280,6 +313,7 @@ func TestGetSocialMediaByIDFailedUnauthenticated(t *testing.T) {
 	// Send request
 	request, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/api/v1/social-medias/%d", socialMedia.ID), nil)
 	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Authorization", "Bearer hehe-token")
 
 	recorder := httptest.NewRecorder()
 	router.ServeHTTP(recorder, request)
