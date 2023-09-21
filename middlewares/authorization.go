@@ -8,11 +8,12 @@ import (
 	"github.com/alvinmdj/mygram-api/models"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
+	"gorm.io/gorm"
 )
 
-func SocialMediaAuthorization() gin.HandlerFunc {
+func SocialMediaAuthorization(testDB ...*gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db := database.GetDB()
+		db := database.GetDB(testDB...)
 
 		// get route param "socialMediaId"
 		socialMediaId, err := strconv.Atoi(c.Param("socialMediaId"))

@@ -331,6 +331,56 @@ func TestGetSocialMediaByIDFailedUnauthenticated(t *testing.T) {
 	assert.NotNil(t, responseBody.Message)
 }
 
+func TestUpdateSocialMediaSuccess(t *testing.T) {
+	// Setup
+	db := SetupTestDB()
+	TruncateUsersTable(db)
+	TruncateSocialMediasTable(db)
+	gin.SetMode(gin.ReleaseMode)
+	router := routers.StartApp(db)
+
+	// Create user
+	userData := RegisterTestUser(db)
+	jwt := helpers.GenerateToken(userData.ID, userData.Email)
+
+	// Create social media
+	socialMediaData := CreateTestSocialMedia(db)
+
+	// Create an instance of SocialMediaUpdateInput struct
+	input := models.SocialMediaUpdateInput{
+		UserID:         userData.ID,
+		ID:             socialMediaData.ID,
+		Name:           "My Twitter",
+		SocialMediaURL: "https://www.twitter.com",
+	}
+
+	// Marshal the struct into a JSON string
+	jsonBody, _ := json.Marshal(input)
+
+	// Create an io.Reader from the JSON string
+	requestBody := strings.NewReader(string(jsonBody))
+	request, _ := http.NewRequest(http.MethodPut, fmt.Sprintf("/api/v1/social-medias/%d", socialMediaData.ID), requestBody)
+	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Authorization", fmt.Sprintf("Bearer %v", jwt))
+
+	recorder := httptest.NewRecorder()
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	// Read the response body & unmarshal the response into SocialMediaUpdateOutput struct
+	body, _ := io.ReadAll(response.Body)
+	var responseBody models.SocialMediaUpdateOutput
+	json.Unmarshal(body, &responseBody)
+
+	assert.NotNil(t, responseBody.ID)
+	assert.NotNil(t, responseBody.UpdatedAt)
+	assert.Equal(t, "My Twitter", responseBody.Name)
+	assert.Equal(t, "https://www.twitter.com", responseBody.SocialMediaURL)
+	assert.Equal(t, userData.ID, responseBody.UserID)
+}
+
 // TODO:
-// UPDATE
-// DELETE
+// UPDATE: success, bad request, not found, unauthenticated, forbidden
+// DELETE:
