@@ -181,6 +181,7 @@ func TestGetAllSocialMediaSuccess(t *testing.T) {
 	var responseBody []models.SocialMediaGetOutput
 	json.Unmarshal(body, &responseBody)
 
+	assert.Len(t, responseBody, 1)
 	assert.Equal(t, "My Youtube", responseBody[0].Name)
 	assert.Equal(t, "https://www.youtube.com", responseBody[0].SocialMediaURL)
 	assert.Equal(t, userData.ID, responseBody[0].User.ID)
@@ -219,3 +220,83 @@ func TestGetAllSocialMediaFailedUnauthenticated(t *testing.T) {
 	assert.Equal(t, "UNAUTHENTICATED", responseBody.Error)
 	assert.NotNil(t, responseBody.Message)
 }
+
+func TestGetSocialMediaByIDSuccess(t *testing.T) {
+	// Setup
+	db := SetupTestDB()
+	TruncateUsersTable(db)
+	TruncateSocialMediasTable(db)
+	gin.SetMode(gin.ReleaseMode)
+	router := routers.StartApp(db)
+
+	// Create user
+	RegisterTestUser(db)
+	userData, _ := GetTestUser(db)
+	jwt := helpers.GenerateToken(userData.ID, userData.Email)
+
+	// Create social media
+	socialMedia := CreateTestSocialMedia(db)
+
+	// Send request
+	request, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/api/v1/social-medias/%d", socialMedia.ID), nil)
+	request.Header.Add("Content-Type", "application/json")
+	request.Header.Add("Authorization", fmt.Sprintf("Bearer %v", jwt))
+
+	recorder := httptest.NewRecorder()
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 200, response.StatusCode)
+
+	// Read the response body & unmarshal the response into SocialMediaGetOutput struct
+	body, _ := io.ReadAll(response.Body)
+	var responseBody models.SocialMediaGetOutput
+	json.Unmarshal(body, &responseBody)
+
+	assert.Equal(t, "My Youtube", responseBody.Name)
+	assert.Equal(t, "https://www.youtube.com", responseBody.SocialMediaURL)
+	assert.Equal(t, userData.ID, responseBody.User.ID)
+	assert.Equal(t, userData.CreatedAt, responseBody.User.CreatedAt)
+	assert.Equal(t, userData.UpdatedAt, responseBody.User.UpdatedAt)
+	assert.Equal(t, userData.Username, responseBody.User.Username)
+	assert.Equal(t, userData.Email, responseBody.User.Email)
+	assert.Equal(t, userData.Age, responseBody.User.Age)
+}
+
+func TestGetSocialMediaByIDFailedUnauthenticated(t *testing.T) {
+	// Setup
+	db := SetupTestDB()
+	TruncateUsersTable(db)
+	TruncateSocialMediasTable(db)
+	gin.SetMode(gin.ReleaseMode)
+	router := routers.StartApp(db)
+
+	// Create user
+	RegisterTestUser(db)
+
+	// Create social media
+	socialMedia := CreateTestSocialMedia(db)
+
+	// Send request
+	request, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/api/v1/social-medias/%d", socialMedia.ID), nil)
+	request.Header.Add("Content-Type", "application/json")
+
+	recorder := httptest.NewRecorder()
+	router.ServeHTTP(recorder, request)
+
+	response := recorder.Result()
+	assert.Equal(t, 401, response.StatusCode)
+
+	// Read the response body & unmarshal the response into ErrorResponse struct
+	body, _ := io.ReadAll(response.Body)
+	var responseBody models.ErrorResponse
+	json.Unmarshal(body, &responseBody)
+
+	assert.NotNil(t, responseBody.Error)
+	assert.Equal(t, "UNAUTHENTICATED", responseBody.Error)
+	assert.NotNil(t, responseBody.Message)
+}
+
+// TODO:
+// UPDATE
+// DELETE

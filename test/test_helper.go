@@ -82,8 +82,7 @@ func GetTestUser(db *gorm.DB) (models.User, error) {
 	return userRepo.FindByEmail(userData)
 }
 
-func CreateTestSocialMedia(db *gorm.DB) {
-	RegisterTestUser(db)
+func CreateTestSocialMedia(db *gorm.DB) models.SocialMedia {
 	userData, _ := GetTestUser(db)
 
 	socialMediaData := models.SocialMedia{
@@ -93,5 +92,6 @@ func CreateTestSocialMedia(db *gorm.DB) {
 	}
 
 	socialMediaRepo := repositories.NewSocialMediaRepo(db)
-	socialMediaRepo.Save(socialMediaData)
+	result, _ := socialMediaRepo.Save(socialMediaData)
+	return result
 }
