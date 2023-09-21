@@ -55,9 +55,9 @@ func SocialMediaAuthorization(testDB ...*gorm.DB) gin.HandlerFunc {
 	}
 }
 
-func PhotoAuthorization() gin.HandlerFunc {
+func PhotoAuthorization(testDB ...*gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db := database.GetDB()
+		db := database.GetDB(testDB...)
 
 		// get route param "photoId"
 		photoId, err := strconv.Atoi(c.Param("photoId"))
@@ -99,9 +99,9 @@ func PhotoAuthorization() gin.HandlerFunc {
 	}
 }
 
-func CommentAuthorization() gin.HandlerFunc {
+func CommentAuthorization(testDB ...*gorm.DB) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		db := database.GetDB()
+		db := database.GetDB(testDB...)
 
 		// get route param "commentId"
 		commentId, err := strconv.Atoi(c.Param("commentId"))

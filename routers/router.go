@@ -27,6 +27,7 @@ import (
 // @license.name  Apache 2.0
 // @license.url   http://www.apache.org/licenses/LICENSE-2.0.html
 func StartApp(testDB ...*gorm.DB) *gin.Engine {
+	// send testDB... optional param for testing purpose
 	db := database.GetDB(testDB...)
 
 	userRepo := repositories.NewUserRepo(db)
@@ -93,8 +94,8 @@ func StartApp(testDB ...*gorm.DB) *gin.Engine {
 				photoRouter.POST("", middlewares.BodySizeMiddleware(), photoHdl.Create)
 
 				// implement authorization middleware (+ body size middleware for update handler)
-				photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(), middlewares.BodySizeMiddleware(), photoHdl.Update)
-				photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(), photoHdl.Delete)
+				photoRouter.PUT("/:photoId", middlewares.PhotoAuthorization(testDB...), middlewares.BodySizeMiddleware(), photoHdl.Update)
+				photoRouter.DELETE("/:photoId", middlewares.PhotoAuthorization(testDB...), photoHdl.Delete)
 			}
 
 			commentRouter := authenticatedRouter.Group("/photos/:photoId/comments")
@@ -107,8 +108,8 @@ func StartApp(testDB ...*gorm.DB) *gin.Engine {
 				commentRouter.POST("", commentHdl.Create)
 
 				// implement authorization middleware
-				commentRouter.PUT("/:commentId", middlewares.CommentAuthorization(), commentHdl.Update)
-				commentRouter.DELETE("/:commentId", middlewares.CommentAuthorization(), commentHdl.Delete)
+				commentRouter.PUT("/:commentId", middlewares.CommentAuthorization(testDB...), commentHdl.Update)
+				commentRouter.DELETE("/:commentId", middlewares.CommentAuthorization(testDB...), commentHdl.Delete)
 			}
 		}
 	}
