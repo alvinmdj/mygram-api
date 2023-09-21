@@ -79,8 +79,8 @@ func StartApp(testDB ...*gorm.DB) *gin.Engine {
 				socialMediaRouter.POST("", socialMediaHdl.Create)
 
 				// implement authorization middleware
-				socialMediaRouter.PUT("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Update)
-				socialMediaRouter.DELETE("/:socialMediaId", middlewares.SocialMediaAuthorization(), socialMediaHdl.Delete)
+				socialMediaRouter.PUT("/:socialMediaId", middlewares.SocialMediaAuthorization(testDB...), socialMediaHdl.Update)
+				socialMediaRouter.DELETE("/:socialMediaId", middlewares.SocialMediaAuthorization(testDB...), socialMediaHdl.Delete)
 			}
 
 			// photo routes
