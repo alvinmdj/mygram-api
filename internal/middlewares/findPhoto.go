@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/alvinmdj/mygram-api/database"
-	"github.com/alvinmdj/mygram-api/models"
+	"github.com/alvinmdj/mygram-api/internal/database"
+	"github.com/alvinmdj/mygram-api/internal/models"
 	"github.com/gin-gonic/gin"
 )
 

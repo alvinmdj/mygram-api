@@ -4,9 +4,9 @@ import (
 	"log"
 	"os"
 
-	"github.com/alvinmdj/mygram-api/database"
-	"github.com/alvinmdj/mygram-api/helpers"
-	"github.com/alvinmdj/mygram-api/routers"
+	"github.com/alvinmdj/mygram-api/internal/database"
+	"github.com/alvinmdj/mygram-api/internal/helpers"
+	"github.com/alvinmdj/mygram-api/internal/routers"
 	"github.com/joho/godotenv"
 )
 

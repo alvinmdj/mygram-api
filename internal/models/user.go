@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/alvinmdj/mygram-api/helpers"
+	"github.com/alvinmdj/mygram-api/internal/helpers"
 	"github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )

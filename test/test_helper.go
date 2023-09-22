@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/alvinmdj/mygram-api/models"
-	"github.com/alvinmdj/mygram-api/repositories"
+	"github.com/alvinmdj/mygram-api/internal/models"
+	"github.com/alvinmdj/mygram-api/internal/repositories"
 	"github.com/joho/godotenv"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
