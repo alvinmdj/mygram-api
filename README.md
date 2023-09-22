@@ -18,10 +18,6 @@ Techs:
 
 ![Swagger docs](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/swagger-screenshot.png "Swagger docs")
 
-## DB Schema
-
-![DB schema](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/db-schema.png "DB schema")
-
 ## Endpoints
 
 | Category     | Method | Endpoint                             | Middleware                     | Description               |
@@ -89,20 +85,29 @@ Techs:
 
 ## Init swagger docs
 
-`swag init -g routers/router.go`
+- using Makefile: `make swagger`
 
 During local development, swagger docs available at: `http://localhost:8080/swagger/index.html`
 
 ## Run test
 
 - using Makefile: `make test`
-- or run test manually: `go test -v ./test`
 
 ## Run app
 
-- local development: `go run .` or `air` for live reload
+- local development: `make start` or `air` for live reload
 - or using Docker: `docker compose up`
+
+## Build app
+
+- using Makefile: `make build`
+
+Build result at `/bin/mygram-api.exe`
 
 ## Create random string
 
 `openssl rand -base64 32`
+
+## DB Schema
+
+![DB schema](https://raw.githubusercontent.com/alvinmdj/mygram-api/main/assets/db-schema.png "DB schema")
