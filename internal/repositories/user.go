@@ -1,7 +1,7 @@
 package repositories
 
 import (
-	"github.com/alvinmdj/mygram-api/models"
+	"github.com/alvinmdj/mygram-api/internal/models"
 	"gorm.io/gorm"
 )
 

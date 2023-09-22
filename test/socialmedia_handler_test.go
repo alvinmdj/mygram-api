@@ -9,9 +9,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/alvinmdj/mygram-api/helpers"
-	"github.com/alvinmdj/mygram-api/models"
-	"github.com/alvinmdj/mygram-api/routers"
+	"github.com/alvinmdj/mygram-api/internal/helpers"
+	"github.com/alvinmdj/mygram-api/internal/models"
+	"github.com/alvinmdj/mygram-api/internal/routers"
 	"github.com/gin-gonic/gin"
 	"github.com/stretchr/testify/assert"
 )

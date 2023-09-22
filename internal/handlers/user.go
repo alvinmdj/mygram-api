@@ -3,9 +3,9 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/alvinmdj/mygram-api/helpers"
-	"github.com/alvinmdj/mygram-api/models"
-	"github.com/alvinmdj/mygram-api/services"
+	"github.com/alvinmdj/mygram-api/internal/helpers"
+	"github.com/alvinmdj/mygram-api/internal/models"
+	"github.com/alvinmdj/mygram-api/internal/services"
 	"github.com/gin-gonic/gin"
 )
 

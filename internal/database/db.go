@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/alvinmdj/mygram-api/models"
+	"github.com/alvinmdj/mygram-api/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -42,6 +42,7 @@ func StartDB() {
 // variadic param to get testDB for go test
 func GetDB(testDB ...*gorm.DB) *gorm.DB {
 	if len(testDB) > 0 && testDB[0] != nil {
+		log.Println("using test db")
 		return testDB[0]
 	}
 	return db

@@ -3,7 +3,7 @@ package middlewares
 import (
 	"net/http"
 
-	"github.com/alvinmdj/mygram-api/models"
+	"github.com/alvinmdj/mygram-api/internal/models"
 	"github.com/gin-gonic/gin"
 )
 

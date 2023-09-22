@@ -7,3 +7,7 @@ build:
 .PHONY: test
 test:
 	go test -v ./test
+
+.PHONY: swagger
+swagger:
+	swag init -g ./internal/routers/router.go

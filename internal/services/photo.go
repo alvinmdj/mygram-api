@@ -4,9 +4,9 @@ import (
 	"log"
 	"mime/multipart"
 
-	"github.com/alvinmdj/mygram-api/helpers"
-	"github.com/alvinmdj/mygram-api/models"
-	"github.com/alvinmdj/mygram-api/repositories"
+	"github.com/alvinmdj/mygram-api/internal/helpers"
+	"github.com/alvinmdj/mygram-api/internal/models"
+	"github.com/alvinmdj/mygram-api/internal/repositories"
 	"github.com/asaskevich/govalidator"
 )
 
