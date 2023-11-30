@@ -51,7 +51,8 @@ func VerifyToken(c *gin.Context) (interface{}, error) {
 
 	// check if the token is valid and not nil
 	if token != nil && token.Valid {
-		// check if token claims can be cast to jwt.MapClaims
+		// perform a type assertion to check if token claims can be asserted as jwt.MapClaims
+		// reference: https://go.dev/tour/methods/15
 		claims, ok := token.Claims.(jwt.MapClaims)
 		if !ok {
 			return nil, errResponse
